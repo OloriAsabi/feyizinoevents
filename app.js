@@ -59,9 +59,34 @@ const products = [
   { name: 'Backdrop Rentals', description: 'Statement arches and photo-worthy installations for ceremonies and receptions.', category: 'Installations', price: '₦220,000 / set', size: '10ft x 8ft', quality: 'Hand-finished details with soft drape', quantity: '10 sets available', image: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=900&q=80' },
 ];
 
+const navItems = [
+  { id: 'home', label: 'Home' },
+  { id: 'portfolio', label: 'Works' },
+  { id: 'services', label: 'Services' },
+  { id: 'products', label: 'Products' },
+];
+
+const pageIds = ['home', 'portfolio', 'services', 'products', 'contact'];
+
 function getCurrentPage() {
-  const hash = window.location.hash.replace('#', '').trim();
-  return ['home', 'portfolio', 'services', 'products', 'contact'].includes(hash) ? hash : 'home';
+  const hash = window.location.hash.replace('#', '').trim().toLowerCase();
+  return pageIds.includes(hash) ? hash : 'home';
+}
+
+function LogoMark({ size = 'sm' }) {
+  return e('span', { className: 'logo-mark logo-mark-' + size },
+    e('img', { src: 'logo-mark.jpg', alt: 'Feyizino Events' })
+  );
+}
+
+function Brand({ size = 'sm' }) {
+  return e('a', { className: 'brand', href: '#home' },
+    e(LogoMark, { size: size }),
+    e('span', { className: 'brand-text' },
+      e('span', { className: 'brand-name' }, 'Feyizino'),
+      e('span', { className: 'brand-sub' }, 'Events & Rentals')
+    )
+  );
 }
 
 function HomePage() {
@@ -69,8 +94,8 @@ function HomePage() {
     e('header', { className: 'hero' },
       e('section', { className: 'hero-content' },
         e('div', null,
-          e('p', { className: 'eyebrow' }, 'Elegant event planning from Sagamu to Lagos, Ogun, and Abuja'),
-          e('h1', null, 'Transforming every celebration into a signature experience.'),
+          e('p', { className: 'eyebrow' }, 'Sagamu · Lagos · Abuja'),
+          e('h1', null, 'Transforming every celebration into a ', e('span', { className: 'gold-text' }, 'signature experience'), '.'),
           e('p', { className: 'lead' }, 'Feyizino Events delivers polished event design, seamless coordination, and premium decor for weddings, corporate launches, and private gatherings across Nigeria.'),
           e('div', { className: 'hero-actions' },
             e('a', { className: 'btn btn-primary', href: '#contact' }, 'Book your event'),
@@ -81,15 +106,18 @@ function HomePage() {
             e('span', null, 'Serving Lagos, Abuja, and beyond')
           )
         ),
-        e('aside', { className: 'hero-card' },
-          e('p', { className: 'eyebrow' }, 'Signature service'),
-          e('h3', null, 'Full-service styling and coordination'),
-          e('ul', null,
-            e('li', null, 'Venue styling and decor'),
-            e('li', null, 'Guest experience planning'),
-            e('li', null, 'Custom rentals and luxury details')
-          ),
-          e('div', { className: 'pill' }, 'Starting at ₦2,500,000')
+        e('div', null,
+          e('div', { className: 'hero-emblem' }, e(LogoMark, { size: 'lg' })),
+          e('aside', { className: 'hero-card', style: { marginTop: '32px' } },
+            e('p', { className: 'eyebrow' }, 'Signature service'),
+            e('h3', null, 'Full-service styling and coordination'),
+            e('ul', null,
+              e('li', null, 'Venue styling and decor'),
+              e('li', null, 'Guest experience planning'),
+              e('li', null, 'Custom rentals and luxury details')
+            ),
+            e('div', { className: 'pill' }, 'Starting at ₦2,500,000')
+          )
         )
       )
     ),
@@ -296,7 +324,7 @@ function ContactPage() {
         e('div', { className: 'panel', style: { marginTop: '20px' } },
           e('h3', null, 'Budget-friendly planning'),
           e('p', null, 'We can work around your budget and shape a plan that feels elevated without overspending.'),
-          e('p', { className: 'pill' }, 'Estimated starting point: $' + estimate)
+          e('p', { className: 'pill' }, 'Estimated starting point: ₦' + estimate.toLocaleString('en-NG'))
         ),
         e('div', { className: 'contact-info' },
           e('span', null, 'hello@feyizinoevents.com'),
@@ -309,11 +337,11 @@ function ContactPage() {
         e('input', { type: 'text', placeholder: 'Your name', required: true }),
         e('input', { type: 'email', placeholder: 'Your email', required: true }),
         e('input', { type: 'text', placeholder: 'Event date' }),
-        e('label', { style: { fontWeight: 600, color: '#5c5c5c' } },
-          'Budget range',
+        e('label', { className: 'field-label' },
+          'Budget range (₦)',
           e('input', { type: 'number', value: budget, onChange: (event) => setBudget(event.target.value), style: { marginTop: '8px' } })
         ),
-        e('label', { style: { fontWeight: 600, color: '#5c5c5c' } },
+        e('label', { className: 'field-label' },
           'Expected guests',
           e('input', { type: 'number', value: guestCount, onChange: (event) => setGuestCount(event.target.value), style: { marginTop: '8px' } })
         ),
@@ -325,11 +353,50 @@ function ContactPage() {
   );
 }
 
+function Footer() {
+  return e('footer', { className: 'footer' },
+    e('div', { className: 'footer-inner' },
+      e('div', null,
+        e('div', { className: 'footer-brand' },
+          e(LogoMark, { size: 'sm' }),
+          e('span', { className: 'brand-text' },
+            e('span', { className: 'brand-name' }, 'Feyizino'),
+            e('span', { className: 'brand-sub' }, 'Events & Rentals')
+          )
+        ),
+        e('p', null, 'Elegant event planning, styling, and premium decor rentals for weddings, corporate launches, and private celebrations across Nigeria.')
+      ),
+      e('div', null,
+        e('h4', null, 'Explore'),
+        e('div', { className: 'footer-links' },
+          navItems.map((item) => e('a', { key: item.id, href: '#' + item.id }, item.label)),
+          e('a', { href: '#contact' }, 'Book your event')
+        )
+      ),
+      e('div', null,
+        e('h4', null, 'Get in touch'),
+        e('div', { className: 'footer-links' },
+          e('a', { href: 'mailto:hello@feyizinoevents.com' }, 'hello@feyizinoevents.com'),
+          e('a', { href: 'tel:+2348100000000' }, '+234 810 000 0000'),
+          e('span', null, 'Plot 8, Freedom Estate, Sagamu, Ogun State')
+        )
+      )
+    ),
+    e('div', { className: 'footer-bottom' },
+      e('span', null, '© ' + new Date().getFullYear() + ' Feyizino Events & Rentals. All rights reserved.'),
+      e('span', null, 'Sagamu · Abeokuta · Lagos · Abuja')
+    )
+  );
+}
+
 function App() {
   const [page, setPage] = React.useState(getCurrentPage);
 
   React.useEffect(() => {
-    const handleHashChange = () => setPage(getCurrentPage());
+    const handleHashChange = () => {
+      setPage(getCurrentPage());
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
@@ -344,36 +411,39 @@ function App() {
 
   return e('div', null,
     e('nav', { className: 'topbar topbar-inline' },
-      e('a', { className: 'brand', href: '#home' }, 'Feyizino Events'),
+      e(Brand),
       e('div', { className: 'nav-links' },
-        e('a', { href: '#portfolio' }, 'Works'),
-        e('a', { href: '#services' }, 'Services'),
-        e('a', { href: '#products' }, 'Products'),
-        e('a', { href: '#contact' }, 'Book')
+        navItems.map((item) => e('a', {
+          key: item.id,
+          href: '#' + item.id,
+          className: page === item.id ? 'is-active' : undefined,
+        }, item.label)),
+        e('a', { href: '#contact', className: 'nav-cta' }, 'Book')
       )
     ),
-    pages[page]
+    pages[page] || pages.home,
+    e(Footer)
   );
 }
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(e(React.StrictMode, null, e(App)));
 
 function hideLoader() {
   const loader = document.getElementById('page-loader');
   if (!loader) return;
-  loader.style.opacity = '0';
   loader.style.transition = 'opacity 0.35s ease';
+  loader.style.opacity = '0';
   setTimeout(() => loader.remove(), 420);
 }
 
-if (document.readyState === 'complete' || document.readyState === 'interactive') {
+window.onerror = function (message, source, lineno, colno, error) {
+  console.error('Feyizino Events:', message, 'at', source + ':' + lineno + ':' + colno, error);
+  // A broken render must never trap the visitor behind the loader.
   hideLoader();
-} else {
-  window.addEventListener('DOMContentLoaded', hideLoader);
-  window.addEventListener('load', hideLoader);
-}
-
-window.onerror = function(message, source, lineno, colno, error) {
-  console.error('Loader error:', message, 'at', source + ':' + lineno + ':' + colno, error);
 };
+
+// Hide the loader once the first render is committed, whether or not it succeeded.
+try {
+  const root = ReactDOM.createRoot(document.getElementById('root'));
+  root.render(e(React.StrictMode, null, e(App)));
+} finally {
+  requestAnimationFrame(hideLoader);
+}

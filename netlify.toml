@@ -1,3 +1,9 @@
 [build]
-  command = "echo 'skip build'"
-  publish = "."
+  command = "node build.js"
+  publish = "dist"
+
+# The site is hash-routed, so every request must resolve to index.html.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
