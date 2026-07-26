@@ -30,13 +30,33 @@ const eventCategories = [
   { title: 'Private Celebrations', detail: 'Birthdays, anniversaries, and intimate gatherings with style.' },
 ];
 
+const testimonials = [
+  {
+    quote: 'Feyizino Events made our wedding unforgettable — every detail was handled with care, and our guests still talk about the flowers and styling.',
+    author: 'Aisha & Tunde',
+    role: 'Wedding clients, Lagos',
+  },
+  {
+    quote: 'The team transformed our launch into a beautifully styled event with perfect flow, professional service, and strong vendor support.',
+    author: 'Olamide',
+    role: 'Corporate client, Abuja',
+  },
+];
+
+const partners = [
+  { name: 'Venue & Co' },
+  { name: 'Bloom Studio' },
+  { name: 'Luxury Rentals' },
+  { name: 'Candlelight Events' },
+];
+
 const products = [
-  { name: 'Table Covers', description: 'Soft linen-inspired covers in ivory, champagne, and blush for a polished base layer.', category: 'Rental decor', price: '₦12,000 / piece', size: '90" x 156"', quality: 'Premium polyester with a linen hand', quantity: '60+ available' },
-  { name: 'Fresh Flowers', description: 'Garden-style florals, centerpieces, and statement bouquets for every table and entryway.', category: 'Floral styling', price: 'From ₦180,000 / arrangement', size: '10–12 stems', quality: 'Seasonally sourced premium blooms', quantity: 'Available for 30+ tables' },
-  { name: 'Dining Tables', description: 'Round and rectangular tables that suit intimate dinners and larger guest lists.', category: 'Furniture', price: '₦48,000 / table', size: '72" x 30"', quality: 'Sturdy wood-look rental tables', quantity: '20 units in stock' },
-  { name: 'Chair Covers', description: 'Elegant chair wraps and sash details that bring a finished look to each seat.', category: 'Seating', price: '₦4,500 / chair', size: 'Standard banquet fit', quality: 'Stretch satin in neutral shades', quantity: '120 pieces available' },
-  { name: 'Lighting Pieces', description: 'Candles, lanterns, and warm lighting accents that elevate the atmosphere after dark.', category: 'Ambience', price: '₦28,000 / unit', size: '15" height average', quality: 'Warm LED and candlelight options', quantity: '40 pieces ready' },
-  { name: 'Backdrop Rentals', description: 'Statement arches and photo-worthy installations for ceremonies and receptions.', category: 'Installations', price: '₦220,000 / set', size: '10ft x 8ft', quality: 'Hand-finished details with soft drape', quantity: '10 sets available' },
+  { name: 'Table Covers', description: 'Soft linen-inspired covers in ivory, champagne, and blush for a polished base layer.', category: 'Rental decor', price: '₦12,000 / piece', size: '90" x 156"', quality: 'Premium polyester with a linen hand', quantity: '60+ available', image: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80' },
+  { name: 'Fresh Flowers', description: 'Garden-style florals, centerpieces, and statement bouquets for every table and entryway.', category: 'Floral styling', price: 'From ₦180,000 / arrangement', size: '10–12 stems', quality: 'Seasonally sourced premium blooms', quantity: 'Available for 30+ tables', image: 'https://images.unsplash.com/photo-1490818387583-1baba5e638af?auto=format&fit=crop&w=900&q=80' },
+  { name: 'Dining Tables', description: 'Round and rectangular tables that suit intimate dinners and larger guest lists.', category: 'Furniture', price: '₦48,000 / table', size: '72" x 30"', quality: 'Sturdy wood-look rental tables', quantity: '20 units in stock', image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80' },
+  { name: 'Chair Covers', description: 'Elegant chair wraps and sash details that bring a finished look to each seat.', category: 'Seating', price: '₦4,500 / chair', size: 'Standard banquet fit', quality: 'Stretch satin in neutral shades', quantity: '120 pieces available', image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&q=80' },
+  { name: 'Lighting Pieces', description: 'Candles, lanterns, and warm lighting accents that elevate the atmosphere after dark.', category: 'Ambience', price: '₦28,000 / unit', size: '15" height average', quality: 'Warm LED and candlelight options', quantity: '40 pieces ready', image: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=900&q=80' },
+  { name: 'Backdrop Rentals', description: 'Statement arches and photo-worthy installations for ceremonies and receptions.', category: 'Installations', price: '₦220,000 / set', size: '10ft x 8ft', quality: 'Hand-finished details with soft drape', quantity: '10 sets available', image: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=900&q=80' },
 ];
 
 function getCurrentPage() {
@@ -49,12 +69,16 @@ function HomePage() {
     e('header', { className: 'hero' },
       e('section', { className: 'hero-content' },
         e('div', null,
-          e('p', { className: 'eyebrow' }, 'Elegant event planning'),
-          e('h1', null, 'Thoughtful celebrations with a clean, timeless feel.'),
-          e('p', { className: 'lead' }, 'We create polished events that feel personal, warm, and beautifully considered — from intimate gatherings to grand-scale celebrations.'),
+          e('p', { className: 'eyebrow' }, 'Elegant event planning from Sagamu to Lagos, Ogun, and Abuja'),
+          e('h1', null, 'Transforming every celebration into a signature experience.'),
+          e('p', { className: 'lead' }, 'Feyizino Events delivers polished event design, seamless coordination, and premium decor for weddings, corporate launches, and private gatherings across Nigeria.'),
           e('div', { className: 'hero-actions' },
             e('a', { className: 'btn btn-primary', href: '#contact' }, 'Book your event'),
             e('a', { className: 'btn btn-secondary', href: '#portfolio' }, 'View our work')
+          ),
+          e('div', { className: 'hero-details' },
+            e('span', null, 'Based in Sagamu, Ogun'),
+            e('span', null, 'Serving Lagos, Abuja, and beyond')
           )
         ),
         e('aside', { className: 'hero-card' },
@@ -65,7 +89,7 @@ function HomePage() {
             e('li', null, 'Guest experience planning'),
             e('li', null, 'Custom rentals and luxury details')
           ),
-          e('div', { className: 'pill' }, 'Starting at $2,500')
+          e('div', { className: 'pill' }, 'Starting at ₦2,500,000')
         )
       )
     ),
@@ -111,6 +135,27 @@ function HomePage() {
               e('p', null, work.description)
             )
           ))
+        )
+      ),
+      e('section', { className: 'section testimonials-section' },
+        e('div', { className: 'section-heading' },
+          e('p', { className: 'eyebrow' }, 'Testimonials'),
+          e('h2', null, 'Loved by clients and trusted by event partners.')
+        ),
+        e('div', { className: 'testimonial-grid' },
+          testimonials.map((item) => e('article', { key: item.author, className: 'card testimonial-card' },
+            e('p', { className: 'testimonial-quote' }, `"${item.quote}"`),
+            e('div', { className: 'testimonial-author' },
+              e('strong', null, item.author),
+              e('span', null, item.role)
+            )
+          ))
+        ),
+        e('div', { className: 'partners-panel' },
+          e('h3', null, 'Our trusted partners'),
+          e('div', { className: 'partner-grid' },
+            partners.map((partner) => e('span', { key: partner.name, className: 'partner-pill' }, partner.name))
+          )
         )
       ),
       e('section', { className: 'section' },
@@ -201,7 +246,8 @@ function ProductsPage() {
       e('p', null, 'From table covers and flowers to tables, chair covers, and lighting, every item is chosen to create a cohesive look.'),
       e('div', { className: 'card-grid products-grid', style: { marginTop: '24px' } },
         products.map((item) => e('article', { key: item.name, className: 'card product-card' },
-          e('div', null,
+          item.image ? e('img', { src: item.image, alt: item.name }) : null,
+          e('div', { className: 'card-body' },
             e('span', null, item.category),
             e('h3', null, item.name),
             e('p', null, item.description),
@@ -255,7 +301,8 @@ function ContactPage() {
         e('div', { className: 'contact-info' },
           e('span', null, 'hello@feyizinoevents.com'),
           e('span', null, '+234 810 000 0000'),
-          e('span', null, 'Plot 8, Freedom Estate, Sagamu, Ogun State')
+          e('span', null, 'Plot 8, Freedom Estate, Sagamu, Ogun State'),
+          e('span', null, 'Serving Sagamu, Abeokuta, Lagos, and Abuja')
         )
       ),
       e('form', { className: 'booking-form', onSubmit: handleSubmit },
@@ -309,7 +356,8 @@ function App() {
   );
 }
 
-ReactDOM.createRoot(document.getElementById('root')).render(e(React.StrictMode, null, e(App)));
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(e(React.StrictMode, null, e(App)));
 
 function hideLoader() {
   const loader = document.getElementById('page-loader');
@@ -319,5 +367,13 @@ function hideLoader() {
   setTimeout(() => loader.remove(), 420);
 }
 
-window.addEventListener('DOMContentLoaded', hideLoader);
-window.addEventListener('load', hideLoader);
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+  hideLoader();
+} else {
+  window.addEventListener('DOMContentLoaded', hideLoader);
+  window.addEventListener('load', hideLoader);
+}
+
+window.onerror = function(message, source, lineno, colno, error) {
+  console.error('Loader error:', message, 'at', source + ':' + lineno + ':' + colno, error);
+};
