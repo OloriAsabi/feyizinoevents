@@ -16,6 +16,7 @@ const assets = [
   'app.js',
   'styles.css',
   'vendor',
+  'media',
   'logo.jpeg',
   'logo-mark.jpg',
   'favicon.jpg',

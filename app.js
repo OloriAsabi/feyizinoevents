@@ -1,5 +1,40 @@
 const e = React.createElement;
 
+/**
+ * Hero banner slides. Mix video and stills freely.
+ *
+ * A video slide always carries a `poster`: it shows while the video buffers,
+ * and stays put if the file is missing, so the banner never renders empty.
+ * Drop your own footage in media/ and point `src` at it.
+ */
+const heroSlides = [
+  {
+    type: 'video',
+    src: 'media/hero.mp4',
+    poster: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1800&q=80',
+    alt: 'A styled reception table set for an evening celebration',
+    duration: 12000,
+  },
+  {
+    type: 'image',
+    src: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1800&q=80',
+    alt: 'Bride and groom during an outdoor ceremony',
+    duration: 6500,
+  },
+  {
+    type: 'image',
+    src: 'https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=1800&q=80',
+    alt: 'Guests toasting at a candlelit reception',
+    duration: 6500,
+  },
+  {
+    type: 'image',
+    src: 'https://images.unsplash.com/photo-1478146896981-b80fe463b330?auto=format&fit=crop&w=1800&q=80',
+    alt: 'Floral centrepiece on a decorated banquet table',
+    duration: 6500,
+  },
+];
+
 const featuredWorks = [
   {
     title: 'Garden Wedding',
@@ -89,9 +124,118 @@ function Brand({ size = 'sm' }) {
   );
 }
 
+function prefersReducedMotion() {
+  return typeof window.matchMedia === 'function'
+    && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+function HeroSlider() {
+  const [index, setIndex] = React.useState(0);
+  const [paused, setPaused] = React.useState(false);
+  const [failed, setFailed] = React.useState({});
+  const videoRefs = React.useRef({});
+  const count = heroSlides.length;
+
+  const go = React.useCallback((next) => setIndex(((next % count) + count) % count), [count]);
+
+  const isPlayableVideo = (slide, i) => slide.type === 'video' && !failed[i];
+
+  // Advance on a timer. Reduced-motion visitors keep whichever slide they are on.
+  React.useEffect(() => {
+    if (paused || prefersReducedMotion()) return undefined;
+    const slide = heroSlides[index];
+    // A video that failed to load is showing its poster, so it holds for as
+    // long as any other still rather than for the clip's length.
+    const delay = isPlayableVideo(slide, index) ? slide.duration
+      : (slide.type === 'video' ? 6500 : slide.duration);
+    const timer = window.setTimeout(() => go(index + 1), delay);
+    return () => window.clearTimeout(timer);
+  }, [index, paused, failed, go]);
+
+  // Only the visible video should ever be playing.
+  React.useEffect(() => {
+    Object.keys(videoRefs.current).forEach((key) => {
+      const node = videoRefs.current[key];
+      if (!node) return;
+      if (Number(key) === index && !paused && !prefersReducedMotion()) {
+        const attempt = node.play();
+        if (attempt && typeof attempt.catch === 'function') attempt.catch(() => {});
+      } else {
+        node.pause();
+      }
+    });
+  }, [index, paused, failed]);
+
+  const renderMedia = (slide, i) => {
+    if (isPlayableVideo(slide, i)) {
+      return e('video', {
+        ref: (node) => {
+          videoRefs.current[i] = node;
+          // React does not reliably set `muted` as a property, and autoplay
+          // is blocked without it.
+          if (node) node.muted = true;
+        },
+        src: slide.src,
+        poster: slide.poster,
+        loop: true,
+        playsInline: true,
+        preload: i === 0 ? 'auto' : 'metadata',
+        'aria-label': slide.alt,
+        onError: () => setFailed((prev) => ({ ...prev, [i]: true })),
+      });
+    }
+    return e('img', {
+      src: slide.type === 'video' ? slide.poster : slide.src,
+      alt: slide.alt,
+      loading: i === 0 ? 'eager' : 'lazy',
+    });
+  };
+
+  return e('div', {
+    className: 'hero-slider',
+    onMouseEnter: () => setPaused(true),
+    onMouseLeave: () => setPaused(false),
+  },
+    e('div', { className: 'hero-slides' },
+      heroSlides.map((slide, i) => e('div', {
+        key: i,
+        className: 'hero-slide' + (i === index ? ' is-active' : ''),
+        'aria-hidden': i === index ? undefined : 'true',
+      }, renderMedia(slide, i)))
+    ),
+    e('div', { className: 'hero-scrim' }),
+    e('div', { className: 'hero-slider-controls' },
+      e('button', {
+        type: 'button',
+        className: 'slider-arrow',
+        onClick: () => go(index - 1),
+        'aria-label': 'Previous slide',
+      }, '‹'),
+      e('div', { className: 'slider-dots', role: 'tablist', 'aria-label': 'Banner slides' },
+        heroSlides.map((slide, i) => e('button', {
+          key: i,
+          type: 'button',
+          role: 'tab',
+          className: 'slider-dot' + (i === index ? ' is-active' : ''),
+          'aria-selected': i === index ? 'true' : 'false',
+          'aria-label': 'Slide ' + (i + 1),
+          onClick: () => go(i),
+        }))
+      ),
+      e('button', {
+        type: 'button',
+        className: 'slider-arrow',
+        onClick: () => go(index + 1),
+        'aria-label': 'Next slide',
+      }, '›')
+    )
+  );
+}
+
 function HomePage() {
   return e('div', { className: 'page-shell' },
     e('header', { className: 'hero' },
+      e(HeroSlider),
       e('section', { className: 'hero-content' },
         e('div', null,
           e('p', { className: 'eyebrow' }, 'Sagamu · Lagos · Abuja'),
@@ -107,9 +251,11 @@ function HomePage() {
           )
         ),
         e('div', null,
-          e('div', { className: 'hero-emblem' }, e(LogoMark, { size: 'lg' })),
-          e('aside', { className: 'hero-card', style: { marginTop: '32px' } },
-            e('p', { className: 'eyebrow' }, 'Signature service'),
+          e('aside', { className: 'hero-card' },
+            e('div', { className: 'hero-card-head' },
+              e(LogoMark, { size: 'md' }),
+              e('p', { className: 'eyebrow', style: { margin: 0 } }, 'Signature service')
+            ),
             e('h3', null, 'Full-service styling and coordination'),
             e('ul', null,
               e('li', null, 'Venue styling and decor'),
