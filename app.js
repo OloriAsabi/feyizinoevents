@@ -12,8 +12,9 @@ const heroSlides = [
     type: 'video',
     src: 'media/hero.mp4',
     poster: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1800&q=80',
-    alt: 'A styled reception table set for an evening celebration',
-    duration: 12000,
+    alt: 'A bride and groom during their wedding ceremony',
+    // Matches the clip length, so it advances on a clean loop point.
+    duration: 10000,
   },
   {
     type: 'image',
@@ -237,7 +238,7 @@ function HomePage() {
     e('header', { className: 'hero' },
       e(HeroSlider),
       e('section', { className: 'hero-content' },
-        e('div', null,
+        e('div', { className: 'hero-copy' },
           e('p', { className: 'eyebrow' }, 'Sagamu · Lagos · Abuja'),
           e('h1', null, 'Transforming every celebration into a ', e('span', { className: 'gold-text' }, 'signature experience'), '.'),
           e('p', { className: 'lead' }, 'Feyizino Events delivers polished event design, seamless coordination, and premium decor for weddings, corporate launches, and private gatherings across Nigeria.'),
@@ -249,9 +250,18 @@ function HomePage() {
             e('span', null, 'Based in Sagamu, Ogun'),
             e('span', null, 'Serving Lagos, Abuja, and beyond')
           )
-        ),
+        )
+      )
+    ),
+    e('main', null,
+      e('section', { className: 'section intro' },
         e('div', null,
-          e('aside', { className: 'hero-card' },
+          e('p', { className: 'eyebrow' }, 'About the planner'),
+          e('h2', null, 'The kind of detail that makes a celebration feel effortless.'),
+          e('p', null, 'Feyizino Events brings a calm, refined approach to planning with a strong eye for styling, budgeting, and guest experience.')
+        ),
+        e('div', { className: 'intro-panels' },
+          e('div', { className: 'panel' },
             e('div', { className: 'hero-card-head' },
               e(LogoMark, { size: 'md' }),
               e('p', { className: 'eyebrow', style: { margin: 0 } }, 'Signature service')
@@ -263,23 +273,14 @@ function HomePage() {
               e('li', null, 'Custom rentals and luxury details')
             ),
             e('div', { className: 'pill' }, 'Starting at ₦2,500,000')
-          )
-        )
-      )
-    ),
-    e('main', null,
-      e('section', { className: 'section intro' },
-        e('div', null,
-          e('p', { className: 'eyebrow' }, 'About the planner'),
-          e('h2', null, 'The kind of detail that makes a celebration feel effortless.'),
-          e('p', null, 'Feyizino Events brings a calm, refined approach to planning with a strong eye for styling, budgeting, and guest experience.')
-        ),
-        e('div', { className: 'panel' },
-          e('h3', null, 'Why clients choose us'),
-          e('ul', null,
-            e('li', null, 'Creative concepts tailored to your story'),
-            e('li', null, 'Clear pricing and thoughtful budget planning'),
-            e('li', null, 'Quality products and trusted vendor support')
+          ),
+          e('div', { className: 'panel' },
+            e('h3', null, 'Why clients choose us'),
+            e('ul', null,
+              e('li', null, 'Creative concepts tailored to your story'),
+              e('li', null, 'Clear pricing and thoughtful budget planning'),
+              e('li', null, 'Quality products and trusted vendor support')
+            )
           )
         )
       ),

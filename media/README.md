@@ -1,9 +1,15 @@
 # Banner media
 
-Drop your own footage here as `hero.mp4` and the first banner slide plays it.
+`hero.mp4` plays as the first slide of the landing page banner.
 
-Until that file exists the slide falls back to its poster image, so the banner
-never looks broken — nothing else needs changing.
+**Replace it with your own event footage when you have it** — same filename,
+nothing else to change. The current clip is a placeholder: a wedding ceremony
+from [Mixkit](https://mixkit.co/free-stock-video/wedding-ceremony-5217/), used
+under the Mixkit Free License, which permits commercial use with no
+attribution. Your own work will always sell the business better than stock.
+
+If the file is ever missing, the slide falls back to its poster image rather
+than rendering empty.
 
 Guidelines for `hero.mp4`:
 
