@@ -1,0 +1,323 @@
+const e = React.createElement;
+
+const featuredWorks = [
+  {
+    title: 'Garden Wedding',
+    description: 'Soft florals, candlelight, and a timeless palette that felt intimate and refined.',
+    image: 'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80',
+  },
+  {
+    title: 'Birthday Soirée',
+    description: 'A playful yet polished celebration with layered textures and warm lighting.',
+    image: 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=80',
+  },
+  {
+    title: 'Corporate Gala',
+    description: 'A refined setup focused on elegance, flow, and a memorable guest experience.',
+    image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=80',
+  },
+];
+
+const services = [
+  { title: 'Planning & design', description: 'Complete event direction with a tailored aesthetic and clear coordination.' },
+  { title: 'Styling & decor', description: 'Thoughtful details, florals, rentals, and immersive atmosphere.' },
+  { title: 'Budget support', description: 'Structured planning that keeps luxury feeling elegant and intentional.' },
+];
+
+const eventCategories = [
+  { title: 'Weddings', detail: 'Romantic, elegant weddings tailored to your story.' },
+  { title: 'Corporate Events', detail: 'Professional launch parties, conferences, and awards dinners.' },
+  { title: 'Private Celebrations', detail: 'Birthdays, anniversaries, and intimate gatherings with style.' },
+];
+
+const products = [
+  { name: 'Table Covers', description: 'Soft linen-inspired covers in ivory, champagne, and blush for a polished base layer.', category: 'Rental decor', price: '₦12,000 / piece', size: '90" x 156"', quality: 'Premium polyester with a linen hand', quantity: '60+ available' },
+  { name: 'Fresh Flowers', description: 'Garden-style florals, centerpieces, and statement bouquets for every table and entryway.', category: 'Floral styling', price: 'From ₦180,000 / arrangement', size: '10–12 stems', quality: 'Seasonally sourced premium blooms', quantity: 'Available for 30+ tables' },
+  { name: 'Dining Tables', description: 'Round and rectangular tables that suit intimate dinners and larger guest lists.', category: 'Furniture', price: '₦48,000 / table', size: '72" x 30"', quality: 'Sturdy wood-look rental tables', quantity: '20 units in stock' },
+  { name: 'Chair Covers', description: 'Elegant chair wraps and sash details that bring a finished look to each seat.', category: 'Seating', price: '₦4,500 / chair', size: 'Standard banquet fit', quality: 'Stretch satin in neutral shades', quantity: '120 pieces available' },
+  { name: 'Lighting Pieces', description: 'Candles, lanterns, and warm lighting accents that elevate the atmosphere after dark.', category: 'Ambience', price: '₦28,000 / unit', size: '15" height average', quality: 'Warm LED and candlelight options', quantity: '40 pieces ready' },
+  { name: 'Backdrop Rentals', description: 'Statement arches and photo-worthy installations for ceremonies and receptions.', category: 'Installations', price: '₦220,000 / set', size: '10ft x 8ft', quality: 'Hand-finished details with soft drape', quantity: '10 sets available' },
+];
+
+function getCurrentPage() {
+  const hash = window.location.hash.replace('#', '').trim();
+  return ['home', 'portfolio', 'services', 'products', 'contact'].includes(hash) ? hash : 'home';
+}
+
+function HomePage() {
+  return e('div', { className: 'page-shell' },
+    e('header', { className: 'hero' },
+      e('section', { className: 'hero-content' },
+        e('div', null,
+          e('p', { className: 'eyebrow' }, 'Elegant event planning'),
+          e('h1', null, 'Thoughtful celebrations with a clean, timeless feel.'),
+          e('p', { className: 'lead' }, 'We create polished events that feel personal, warm, and beautifully considered — from intimate gatherings to grand-scale celebrations.'),
+          e('div', { className: 'hero-actions' },
+            e('a', { className: 'btn btn-primary', href: '#contact' }, 'Book your event'),
+            e('a', { className: 'btn btn-secondary', href: '#portfolio' }, 'View our work')
+          )
+        ),
+        e('aside', { className: 'hero-card' },
+          e('p', { className: 'eyebrow' }, 'Signature service'),
+          e('h3', null, 'Full-service styling and coordination'),
+          e('ul', null,
+            e('li', null, 'Venue styling and decor'),
+            e('li', null, 'Guest experience planning'),
+            e('li', null, 'Custom rentals and luxury details')
+          ),
+          e('div', { className: 'pill' }, 'Starting at $2,500')
+        )
+      )
+    ),
+    e('main', null,
+      e('section', { className: 'section intro' },
+        e('div', null,
+          e('p', { className: 'eyebrow' }, 'About the planner'),
+          e('h2', null, 'The kind of detail that makes a celebration feel effortless.'),
+          e('p', null, 'Feyizino Events brings a calm, refined approach to planning with a strong eye for styling, budgeting, and guest experience.')
+        ),
+        e('div', { className: 'panel' },
+          e('h3', null, 'Why clients choose us'),
+          e('ul', null,
+            e('li', null, 'Creative concepts tailored to your story'),
+            e('li', null, 'Clear pricing and thoughtful budget planning'),
+            e('li', null, 'Quality products and trusted vendor support')
+          )
+        )
+      ),
+      e('section', { className: 'section' },
+        e('div', { className: 'section-heading' },
+          e('p', { className: 'eyebrow' }, 'Service areas'),
+          e('h2', null, 'Proudly serving Sagamu, Ogun, Lagos, and Abuja.'),
+          e('p', null, 'Feyizino Events brings premium event planning and styling to the South West and the Federal Capital Territory.')
+        ),
+        e('div', { className: 'card-grid', style: { marginTop: '24px' } },
+          eventCategories.map((item) => e('article', { key: item.title, className: 'card product-card' },
+            e('h3', null, item.title),
+            e('p', null, item.detail)
+          ))
+        )
+      ),
+      e('section', { className: 'section' },
+        e('div', { className: 'section-heading' },
+          e('p', { className: 'eyebrow' }, 'Featured work'),
+          e('h2', null, 'Recent celebrations with a refined, personal touch.')
+        ),
+        e('div', { className: 'card-grid' },
+          featuredWorks.map((work) => e('article', { key: work.title, className: 'card' },
+            e('img', { src: work.image, alt: work.title }),
+            e('div', { className: 'card-body' },
+              e('h3', null, work.title),
+              e('p', null, work.description)
+            )
+          ))
+        )
+      ),
+      e('section', { className: 'section' },
+        e('div', { className: 'section-heading' },
+          e('p', { className: 'eyebrow' }, 'Product demo'),
+          e('h2', null, 'A quick look at the styled pieces available for your event.')
+        ),
+        e('div', { className: 'product-demo' },
+          e('div', { className: 'card product-demo-card' },
+            e('h3', null, 'Signature setup'),
+            e('p', null, 'Soft table covers, fresh florals, warm lighting, and elegant seating come together in a polished, balanced look.'),
+            e('div', { className: 'demo-list' },
+              e('div', { className: 'demo-item' },
+                e('strong', null, 'Table covers'),
+                e('span', null, 'Ivory, blush, and champagne tones for a refined base layer.')
+              ),
+              e('div', { className: 'demo-item' },
+                e('strong', null, 'Florals'),
+                e('span', null, 'Garden-inspired arrangements with texture and movement.')
+              ),
+              e('div', { className: 'demo-item' },
+                e('strong', null, 'Lighting'),
+                e('span', null, 'Candles and lanterns that soften the evening atmosphere.')
+              )
+            )
+          ),
+          e('div', { className: 'card product-demo-card' },
+            e('h3', null, 'Ideal for'),
+            e('div', { className: 'demo-list' },
+              e('div', { className: 'demo-item' },
+                e('strong', null, 'Weddings'),
+                e('span', null, 'Romantic, airy styling with timeless details.')
+              ),
+              e('div', { className: 'demo-item' },
+                e('strong', null, 'Birthdays'),
+                e('span', null, 'Playful setups with a polished finish.')
+              ),
+              e('div', { className: 'demo-item' },
+                e('strong', null, 'Corporate events'),
+                e('span', null, 'Elegant decor that feels clean and elevated.')
+              )
+            )
+          )
+        )
+      )
+    )
+  );
+}
+
+function PortfolioPage() {
+  return e('div', { className: 'page-shell' },
+    e('section', { className: 'section' },
+      e('p', { className: 'eyebrow' }, 'Portfolio'),
+      e('h2', null, 'A closer look at the work behind the experience.'),
+      e('div', { className: 'card-grid', style: { marginTop: '24px' } },
+        featuredWorks.map((item) => e('article', { key: item.title, className: 'card' },
+          e('img', { src: item.image, alt: item.title }),
+          e('div', { className: 'card-body' },
+            e('h3', null, item.title),
+            e('p', null, item.description)
+          )
+        ))
+      )
+    )
+  );
+}
+
+function ServicesPage() {
+  return e('div', { className: 'page-shell' },
+    e('section', { className: 'section' },
+      e('p', { className: 'eyebrow' }, 'Services'),
+      e('h2', null, 'Flexible services shaped around your celebration.'),
+      e('div', { className: 'card-grid', style: { marginTop: '24px' } },
+        services.map((service) => e('article', { key: service.title, className: 'card product-card' },
+          e('h3', null, service.title),
+          e('p', null, service.description)
+        ))
+      )
+    )
+  );
+}
+
+function ProductsPage() {
+  return e('div', { className: 'page-shell' },
+    e('section', { className: 'section' },
+      e('p', { className: 'eyebrow' }, 'Products catalog'),
+      e('h2', null, 'Decor, rentals, and styling pieces curated for every celebration.'),
+      e('p', null, 'From table covers and flowers to tables, chair covers, and lighting, every item is chosen to create a cohesive look.'),
+      e('div', { className: 'card-grid products-grid', style: { marginTop: '24px' } },
+        products.map((item) => e('article', { key: item.name, className: 'card product-card' },
+          e('div', null,
+            e('span', null, item.category),
+            e('h3', null, item.name),
+            e('p', null, item.description),
+            e('div', { className: 'product-meta' },
+              e('div', null,
+                e('strong', null, 'Price'),
+                e('span', null, item.price)
+              ),
+              e('div', null,
+                e('strong', null, 'Size'),
+                e('span', null, item.size)
+              ),
+              e('div', null,
+                e('strong', null, 'Quality'),
+                e('span', null, item.quality)
+              ),
+              e('div', null,
+                e('strong', null, 'Quantity'),
+                e('span', null, item.quantity)
+              )
+            )
+          )
+        ))
+      )
+    )
+  );
+}
+
+function ContactPage() {
+  const [submitted, setSubmitted] = React.useState('');
+  const [budget, setBudget] = React.useState('500000');
+  const [guestCount, setGuestCount] = React.useState('80');
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setSubmitted('Thank you — your inquiry has been received. We will be in touch shortly.');
+  };
+
+  const estimate = Math.max(1800, Math.round(Number(budget) * 0.45 + Number(guestCount) * 18));
+
+  return e('div', { className: 'page-shell' },
+    e('section', { className: 'section booking-section' },
+      e('div', null,
+        e('p', { className: 'eyebrow' }, 'Book your celebration'),
+        e('h2', null, 'Let’s create something memorable together.'),
+        e('p', null, 'Share a little about your date, style, and vision and we will send a tailored proposal your way.'),
+        e('div', { className: 'panel', style: { marginTop: '20px' } },
+          e('h3', null, 'Budget-friendly planning'),
+          e('p', null, 'We can work around your budget and shape a plan that feels elevated without overspending.'),
+          e('p', { className: 'pill' }, 'Estimated starting point: $' + estimate)
+        ),
+        e('div', { className: 'contact-info' },
+          e('span', null, 'hello@feyizinoevents.com'),
+          e('span', null, '+234 810 000 0000'),
+          e('span', null, 'Plot 8, Freedom Estate, Sagamu, Ogun State')
+        )
+      ),
+      e('form', { className: 'booking-form', onSubmit: handleSubmit },
+        e('input', { type: 'text', placeholder: 'Your name', required: true }),
+        e('input', { type: 'email', placeholder: 'Your email', required: true }),
+        e('input', { type: 'text', placeholder: 'Event date' }),
+        e('label', { style: { fontWeight: 600, color: '#5c5c5c' } },
+          'Budget range',
+          e('input', { type: 'number', value: budget, onChange: (event) => setBudget(event.target.value), style: { marginTop: '8px' } })
+        ),
+        e('label', { style: { fontWeight: 600, color: '#5c5c5c' } },
+          'Expected guests',
+          e('input', { type: 'number', value: guestCount, onChange: (event) => setGuestCount(event.target.value), style: { marginTop: '8px' } })
+        ),
+        e('textarea', { rows: '4', placeholder: 'Tell us about your celebration' }),
+        e('button', { className: 'btn btn-primary', type: 'submit' }, 'Send inquiry'),
+        submitted ? e('p', { className: 'success' }, submitted) : null
+      )
+    )
+  );
+}
+
+function App() {
+  const [page, setPage] = React.useState(getCurrentPage);
+
+  React.useEffect(() => {
+    const handleHashChange = () => setPage(getCurrentPage());
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  const pages = {
+    home: e(HomePage),
+    portfolio: e(PortfolioPage),
+    services: e(ServicesPage),
+    products: e(ProductsPage),
+    contact: e(ContactPage),
+  };
+
+  return e('div', null,
+    e('nav', { className: 'topbar topbar-inline' },
+      e('a', { className: 'brand', href: '#home' }, 'Feyizino Events'),
+      e('div', { className: 'nav-links' },
+        e('a', { href: '#portfolio' }, 'Works'),
+        e('a', { href: '#services' }, 'Services'),
+        e('a', { href: '#products' }, 'Products'),
+        e('a', { href: '#contact' }, 'Book')
+      )
+    ),
+    pages[page]
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(e(React.StrictMode, null, e(App)));
+
+function hideLoader() {
+  const loader = document.getElementById('page-loader');
+  if (!loader) return;
+  loader.style.opacity = '0';
+  loader.style.transition = 'opacity 0.35s ease';
+  setTimeout(() => loader.remove(), 420);
+}
+
+window.addEventListener('DOMContentLoaded', hideLoader);
+window.addEventListener('load', hideLoader);
