@@ -5,8 +5,8 @@
   "type": "module",
   "description": "Static site. React 18 is vendored in vendor/ and loaded from a plain script tag - there is no bundler.",
   "scripts": {
-    "dev": "python3 -m http.server 3000",
+    "dev": "node dev.js",
     "build": "node build.js",
-    "preview": "python3 -m http.server 3000 --directory dist"
+    "preview": "node dev.js dist"
   }
 }

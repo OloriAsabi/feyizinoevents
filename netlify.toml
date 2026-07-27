@@ -2,7 +2,8 @@
   command = "node build.js"
   publish = "dist"
 
-# The site is hash-routed, so every request must resolve to index.html.
+# The site is path-routed (/about, /products), so every request must resolve to
+# index.html and let the client-side router pick the page.
 [[redirects]]
   from = "/*"
   to = "/index.html"

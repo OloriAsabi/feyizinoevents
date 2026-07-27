@@ -14,10 +14,10 @@
     <meta property="og:description" content="Feyizino Events delivers elegant event planning and styling across Lagos, Ogun, and Abuja, from weddings to corporate celebrations." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="http://127.0.0.1:3000/" />
-    <meta property="og:image" content="logo.jpeg" />
+    <meta property="og:image" content="/logo.jpeg" />
     <meta name="theme-color" content="#08070a" />
-    <link rel="icon" type="image/jpeg" href="favicon.jpg" />
-    <link rel="apple-touch-icon" href="logo-mark.jpg" />
+    <link rel="icon" type="image/jpeg" href="/favicon.jpg" />
+    <link rel="apple-touch-icon" href="/logo-mark.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Feyizino Events | Top Event Planner in Nigeria" />
     <meta name="twitter:description" content="Feyizino Events delivers elegant event planning and styling across Lagos, Ogun, and Abuja, from weddings to corporate celebrations." />
@@ -27,12 +27,14 @@
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css" />
+    <!-- Root-absolute so a direct load of /products resolves these against the
+         site root, not against /products/. -->
+    <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
     <div id="page-loader" class="page-loader">
       <div class="logo-mark loader-logo">
-        <img src="logo-mark.jpg" alt="Feyizino Events" />
+        <img src="/logo-mark.jpg" alt="Feyizino Events" />
       </div>
       <div class="loader-shell">
         <div class="loader-dot"></div>
@@ -50,8 +52,8 @@
         if (loader) loader.remove();
       }, 6000);
     </script>
-    <script src="vendor/react.production.min.js"></script>
-    <script src="vendor/react-dom.production.min.js"></script>
-    <script src="app.js"></script>
+    <script src="/vendor/react.production.min.js"></script>
+    <script src="/vendor/react-dom.production.min.js"></script>
+    <script src="/app.js"></script>
   </body>
 </html>

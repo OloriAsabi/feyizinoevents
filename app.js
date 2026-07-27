@@ -6,11 +6,14 @@ const e = React.createElement;
  * A video slide always carries a `poster`: it shows while the video buffers,
  * and stays put if the file is missing, so the banner never renders empty.
  * Drop your own footage in media/ and point `src` at it.
+ *
+ * Local paths are root-absolute: the site is path-routed, so a relative src on
+ * /products would resolve against /products/ and miss the file.
  */
 const heroSlides = [
   {
     type: 'video',
-    src: 'media/hero.mp4',
+    src: '/media/hero.mp4',
     poster: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1800&q=80',
     alt: 'A bride and groom during their wedding ceremony',
     // Matches the clip length, so it advances on a clean loop point.
@@ -152,19 +155,29 @@ const navItems = [
 
 const pageIds = ['home', 'about', 'portfolio', 'services', 'products', 'contact'];
 
+// Paths, not hashes. Netlify rewrites every request to index.html (see _redirects),
+// so the History API can own the URL and /products stays /products.
+function pageHref(id) {
+  return id === 'home' ? '/' : '/' + id;
+}
+
+function pathToPage(pathname) {
+  const slug = pathname.replace(/^\/+|\/+$/g, '').toLowerCase();
+  return pageIds.includes(slug) ? slug : 'home';
+}
+
 function getCurrentPage() {
-  const hash = window.location.hash.replace('#', '').trim().toLowerCase();
-  return pageIds.includes(hash) ? hash : 'home';
+  return pathToPage(window.location.pathname);
 }
 
 function LogoMark({ size = 'sm' }) {
   return e('span', { className: 'logo-mark logo-mark-' + size },
-    e('img', { src: 'logo-mark.jpg', alt: 'Feyizino Events' })
+    e('img', { src: '/logo-mark.jpg', alt: 'Feyizino Events' })
   );
 }
 
 function Brand({ size = 'sm' }) {
-  return e('a', { className: 'brand', href: '#home' },
+  return e('a', { className: 'brand', href: pageHref('home') },
     e(LogoMark, { size: size }),
     e('span', { className: 'brand-text' },
       e('span', { className: 'brand-name' }, 'Feyizino'),
@@ -291,8 +304,8 @@ function HomePage() {
           e('h1', null, 'Transforming every celebration into a ', e('span', { className: 'gold-text' }, 'signature experience'), '.'),
           e('p', { className: 'lead' }, 'Feyizino Events delivers polished event design, seamless coordination, and premium decor for weddings, corporate launches, and private gatherings across Nigeria.'),
           e('div', { className: 'hero-actions' },
-            e('a', { className: 'btn btn-primary', href: '#contact' }, 'Book your event'),
-            e('a', { className: 'btn btn-secondary', href: '#portfolio' }, 'View our work')
+            e('a', { className: 'btn btn-primary', href: pageHref('contact') }, 'Book your event'),
+            e('a', { className: 'btn btn-secondary', href: pageHref('portfolio') }, 'View our work')
           ),
           e('div', { className: 'hero-details' },
             e('span', null, 'Based in Sagamu, Ogun'),
@@ -307,7 +320,7 @@ function HomePage() {
           e('p', { className: 'eyebrow' }, 'About the planner'),
           e('h2', null, 'The kind of detail that makes a celebration feel effortless.'),
           e('p', null, 'Feyizino Events brings a calm, refined approach to planning with a strong eye for styling, budgeting, and guest experience.'),
-          e('a', { className: 'btn btn-secondary', href: '#about', style: { marginTop: '8px' } }, 'About us and our CEO')
+          e('a', { className: 'btn btn-secondary', href: pageHref('about'), style: { marginTop: '8px' } }, 'About us and our CEO')
         ),
         e('div', { className: 'intro-panels' },
           e('div', { className: 'panel' },
@@ -489,7 +502,7 @@ function AboutPage() {
             e('ul', null, ceo.focus.map((item) => e('li', { key: item }, item)))
           ),
           e('div', { className: 'ceo-actions' },
-            e('a', { className: 'btn btn-primary', href: '#contact' }, 'Plan with us'),
+            e('a', { className: 'btn btn-primary', href: pageHref('contact') }, 'Plan with us'),
             e('a', { className: 'btn btn-secondary', href: 'mailto:' + ceo.email }, 'Email the team')
           )
         )
@@ -647,8 +660,8 @@ function Footer() {
       e('div', null,
         e('h4', null, 'Explore'),
         e('div', { className: 'footer-links' },
-          navItems.map((item) => e('a', { key: item.id, href: '#' + item.id }, item.label)),
-          e('a', { href: '#contact' }, 'Book your event')
+          navItems.map((item) => e('a', { key: item.id, href: pageHref(item.id) }, item.label)),
+          e('a', { href: pageHref('contact') }, 'Book your event')
         )
       ),
       e('div', null,
@@ -671,13 +684,35 @@ function App() {
   const [page, setPage] = React.useState(getCurrentPage);
 
   React.useEffect(() => {
-    const handleHashChange = () => {
+    const handlePopState = () => {
       setPage(getCurrentPage());
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
   }, []);
+
+  // One delegated handler lets every in-app link stay a real <a href="/page">,
+  // so it is crawlable and opens in a new tab, yet routes without a reload.
+  const handleNavClick = (event) => {
+    if (event.defaultPrevented || event.button !== 0) return;
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+    const link = event.target.closest('a');
+    if (!link || link.target || link.hasAttribute('download')) return;
+    // Leaves mailto:, tel:, and any outbound link to the browser.
+    if (link.origin !== window.location.origin) return;
+
+    const next = pathToPage(link.pathname);
+    if (link.pathname.replace(/^\/+|\/+$/g, '') && next === 'home') return;
+
+    event.preventDefault();
+    if (window.location.pathname !== pageHref(next)) {
+      window.history.pushState({}, '', pageHref(next));
+    }
+    setPage(next);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const pages = {
     home: e(HomePage),
@@ -688,16 +723,16 @@ function App() {
     contact: e(ContactPage),
   };
 
-  return e('div', null,
+  return e('div', { onClick: handleNavClick },
     e('nav', { className: 'topbar topbar-inline' },
       e(Brand),
       e('div', { className: 'nav-links' },
         navItems.map((item) => e('a', {
           key: item.id,
-          href: '#' + item.id,
+          href: pageHref(item.id),
           className: page === item.id ? 'is-active' : undefined,
         }, item.label)),
-        e('a', { href: '#contact', className: 'nav-cta' }, 'Book')
+        e('a', { href: pageHref('contact'), className: 'nav-cta' }, 'Book')
       )
     ),
     pages[page] || pages.home,
