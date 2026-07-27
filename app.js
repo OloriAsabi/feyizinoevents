@@ -95,14 +95,62 @@ const products = [
   { name: 'Backdrop Rentals', description: 'Statement arches and photo-worthy installations for ceremonies and receptions.', category: 'Installations', price: '₦220,000 / set', size: '10ft x 8ft', quality: 'Hand-finished details with soft drape', quantity: '10 sets available', image: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=900&q=80' },
 ];
 
+/* ------------------------------------------------------------------------
+ * PLACEHOLDER — the founder profile and the counters below are invented.
+ * Replace every value in `ceo` and `aboutStats` with the real details before
+ * this page goes live; the rest of the About copy only restates what the site
+ * already says elsewhere and is safe as written.
+ * ---------------------------------------------------------------------- */
+const ceo = {
+  name: 'Add founder name',
+  role: 'Founder & Chief Executive Officer',
+  // Leave empty until there is a real portrait. The photo slot falls back to
+  // the logo monogram rather than borrowing a stock stranger's face.
+  photo: '',
+  bio: [
+    'Add a short paragraph on how Feyizino Events started — what the founder was doing before, and the moment the business began.',
+    'Add a second paragraph on how they work with clients: the planning approach, what they care about most, and what a couple or company can expect from the first meeting onward.',
+  ],
+  quote: 'Add a line the founder would actually say about the work.',
+  focus: [
+    'Event design direction',
+    'Client and guest experience',
+    'Vendor and venue partnerships',
+  ],
+  email: 'hello@feyizinoevents.com',
+};
+
+const aboutStats = [
+  { value: '10+', label: 'Years planning celebrations' },
+  { value: '250+', label: 'Events delivered' },
+  { value: '4', label: 'Cities served' },
+  { value: '40+', label: 'Vendor partners' },
+];
+
+const aboutValues = [
+  {
+    title: 'Design with intent',
+    detail: 'Every palette, table, and light is chosen to serve one clear idea rather than a collection of trends.',
+  },
+  {
+    title: 'Calm coordination',
+    detail: 'Timelines, vendors, and logistics are handled well before the day, so the celebration itself feels unhurried.',
+  },
+  {
+    title: 'Honest budgeting',
+    detail: 'Clear pricing and early trade-offs, so the spend lands where guests will actually notice it.',
+  },
+];
+
 const navItems = [
   { id: 'home', label: 'Home' },
+  { id: 'about', label: 'About' },
   { id: 'portfolio', label: 'Works' },
   { id: 'services', label: 'Services' },
   { id: 'products', label: 'Products' },
 ];
 
-const pageIds = ['home', 'portfolio', 'services', 'products', 'contact'];
+const pageIds = ['home', 'about', 'portfolio', 'services', 'products', 'contact'];
 
 function getCurrentPage() {
   const hash = window.location.hash.replace('#', '').trim().toLowerCase();
@@ -258,7 +306,8 @@ function HomePage() {
         e('div', null,
           e('p', { className: 'eyebrow' }, 'About the planner'),
           e('h2', null, 'The kind of detail that makes a celebration feel effortless.'),
-          e('p', null, 'Feyizino Events brings a calm, refined approach to planning with a strong eye for styling, budgeting, and guest experience.')
+          e('p', null, 'Feyizino Events brings a calm, refined approach to planning with a strong eye for styling, budgeting, and guest experience.'),
+          e('a', { className: 'btn btn-secondary', href: '#about', style: { marginTop: '8px' } }, 'About us and our CEO')
         ),
         e('div', { className: 'intro-panels' },
           e('div', { className: 'panel' },
@@ -375,6 +424,88 @@ function HomePage() {
             )
           )
         )
+      )
+    )
+  );
+}
+
+/* The portrait falls back to the logo monogram whenever `ceo.photo` is empty
+   or fails to load, so the block never renders a broken image. */
+function CeoPortrait() {
+  const [broken, setBroken] = React.useState(false);
+  const showPhoto = Boolean(ceo.photo) && !broken;
+  return e('div', { className: 'ceo-portrait' },
+    showPhoto
+      ? e('img', { src: ceo.photo, alt: ceo.name, onError: () => setBroken(true) })
+      : e('div', { className: 'ceo-portrait-fallback' },
+          e(LogoMark, { size: 'md' }),
+          e('span', null, 'Portrait coming soon')
+        )
+  );
+}
+
+function AboutPage() {
+  return e('div', { className: 'page-shell' },
+    e('section', { className: 'section' },
+      e('div', { className: 'section-heading' },
+        e('p', { className: 'eyebrow' }, 'About us'),
+        e('h2', null, 'An event studio built on ', e('span', { className: 'gold-text' }, 'detail'), ', not noise.'),
+        e('p', { className: 'lead' }, 'Feyizino Events plans, styles, and equips celebrations across Nigeria. We work from Sagamu, Ogun State, and travel to Lagos, Abuja, and beyond for weddings, corporate launches, and private gatherings.')
+      ),
+      e('div', { className: 'about-story' },
+        e('div', { className: 'panel' },
+          e('h3', null, 'What we do'),
+          e('p', null, 'Full-service planning and design, venue styling, and premium decor rentals — from the first concept through to the last table setting on the day.'),
+          e('p', null, 'Because we own much of what we style with, the look you agree on is the look that arrives.')
+        ),
+        e('div', { className: 'panel' },
+          e('h3', null, 'How we work'),
+          e('p', null, 'We start with the shape of your day and the people in the room, then build the design and the budget around it together.'),
+          e('p', null, 'One point of contact, a clear timeline, and vendors we have worked with before.')
+        )
+      ),
+      e('div', { className: 'stat-grid' },
+        aboutStats.map((stat) => e('div', { key: stat.label, className: 'stat-card' },
+          e('strong', null, stat.value),
+          e('span', null, stat.label)
+        ))
+      )
+    ),
+    e('div', { className: 'section-divider' }, e('span', null)),
+    e('section', { className: 'section' },
+      e('div', { className: 'section-heading' },
+        e('p', { className: 'eyebrow' }, 'Leadership'),
+        e('h2', null, 'Meet our CEO.')
+      ),
+      e('div', { className: 'ceo-layout' },
+        e(CeoPortrait),
+        e('div', { className: 'ceo-copy' },
+          e('h3', { className: 'ceo-name' }, ceo.name),
+          e('p', { className: 'ceo-role' }, ceo.role),
+          ceo.bio.map((paragraph, i) => e('p', { key: i }, paragraph)),
+          e('blockquote', { className: 'ceo-quote' }, ceo.quote),
+          e('div', { className: 'ceo-focus' },
+            e('h4', null, 'Leads on'),
+            e('ul', null, ceo.focus.map((item) => e('li', { key: item }, item)))
+          ),
+          e('div', { className: 'ceo-actions' },
+            e('a', { className: 'btn btn-primary', href: '#contact' }, 'Plan with us'),
+            e('a', { className: 'btn btn-secondary', href: 'mailto:' + ceo.email }, 'Email the team')
+          )
+        )
+      )
+    ),
+    e('div', { className: 'section-divider' }, e('span', null)),
+    e('section', { className: 'section' },
+      e('div', { className: 'section-heading' },
+        e('p', { className: 'eyebrow' }, 'What guides us' ),
+        e('h2', null, 'Three things we will not compromise on.')
+      ),
+      e('div', { className: 'card-grid' },
+        aboutValues.map((value) => e('article', { key: value.title, className: 'card product-card' },
+          e('h3', null, value.title),
+          e('p', null, value.detail)
+        ))
       )
     )
   );
@@ -550,6 +681,7 @@ function App() {
 
   const pages = {
     home: e(HomePage),
+    about: e(AboutPage),
     portfolio: e(PortfolioPage),
     services: e(ServicesPage),
     products: e(ProductsPage),
