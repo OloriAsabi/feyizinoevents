@@ -1,6 +1,28 @@
 const e = React.createElement;
 
 /**
+ * The real business details, in one place so the contact page, the footer, and
+ * anywhere else that quotes them can never drift apart.
+ *
+ * `emailHref` percent-encodes the `&`: in a mailto: URL a bare ampersand starts
+ * a header field, which would truncate the address at "FEYIZINOevents".
+ */
+const contact = {
+  name: 'Feyizino Event & Rentals',
+  phone: '+234 802 319 0408',
+  phoneHref: 'tel:+2348023190408',
+  office: '+234 802 475 4605',
+  officeHref: 'tel:+2348024754605',
+  email: 'FEYIZINOevents&rentals@gmail.com',
+  emailHref: 'mailto:FEYIZINOevents%26rentals@gmail.com',
+  instagram: '@FEYIZINO_Events',
+  instagramHref: 'https://www.instagram.com/feyizino_events/',
+  address: '9, Abiodun Ogunyanwo Street, Off Ewusi Street, Makun, Sagamu, Ogun State',
+  addressNote: 'Directly beside the AUD Central Mosque building, Awolowo Market',
+  serving: 'Serving Sagamu, Abeokuta, Lagos, and Abuja',
+};
+
+/**
  * Hero banner slides. Mix video and stills freely.
  *
  * A video slide always carries a `poster`: it shows while the video buffers,
@@ -8,7 +30,7 @@ const e = React.createElement;
  * Drop your own footage in media/ and point `src` at it.
  *
  * Local paths are root-absolute: the site is path-routed, so a relative src on
- * /products would resolve against /products/ and miss the file.
+ * /rentals would resolve against /rentals/ and miss the file.
  */
 const heroSlides = [
   {
@@ -120,7 +142,6 @@ const ceo = {
     'Client and guest experience',
     'Vendor and venue partnerships',
   ],
-  email: 'hello@feyizinoevents.com',
 };
 
 const aboutStats = [
@@ -150,20 +171,57 @@ const navItems = [
   { id: 'about', label: 'About' },
   { id: 'portfolio', label: 'Works' },
   { id: 'services', label: 'Services' },
-  { id: 'products', label: 'Products' },
+  { id: 'rentals', label: 'Rentals' },
 ];
 
-const pageIds = ['home', 'about', 'portfolio', 'services', 'products', 'contact'];
+/**
+ * One line-art glyph per destination, drawn on a 24x24 grid. Stroked in
+ * `currentColor` so a single colour rule covers the icon and its label.
+ */
+const navIcons = {
+  home: 'M3 10.8 12 3.2l9 7.6M5.6 9.6V20.8h12.8V9.6',
+  about: 'M12 12.4a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM4.6 20.4c1.4-3.4 4.2-5.2 7.4-5.2s6 1.8 7.4 5.2',
+  portfolio: 'M4 5h16v14H4V5Zm0 10.6 4.5-4.5 4 4 3-3L20 16',
+  services: 'M12 3.4 13.9 9l5.7 1.9-5.7 1.9L12 18.5l-1.9-5.7L4.4 10.9 10.1 9 12 3.4Z',
+  rentals: 'M12 3.4 20.2 7.7v8.6L12 20.6 3.8 16.3V7.7L12 3.4Zm8.2 4.3L12 12 3.8 7.7M12 12v8.6',
+  contact: 'M4.6 6.6h14.8v12.8H4.6V6.6Zm4-3v4m6.8-4v4M4.6 11h14.8',
+  menu: 'M4 7h16M4 12h16M4 17h16',
+  close: 'M6 6l12 12M18 6 6 18',
+};
+
+function NavIcon({ name }) {
+  return e('svg', {
+    className: 'nav-icon',
+    viewBox: '0 0 24 24',
+    width: '20',
+    height: '20',
+    fill: 'none',
+    stroke: 'currentColor',
+    strokeWidth: '1.6',
+    strokeLinecap: 'round',
+    strokeLinejoin: 'round',
+    'aria-hidden': 'true',
+    focusable: 'false',
+  }, e('path', { d: navIcons[name] }));
+}
+
+const pageIds = ['home', 'about', 'portfolio', 'services', 'rentals', 'contact'];
 
 // Paths, not hashes. Netlify rewrites every request to index.html (see _redirects),
-// so the History API can own the URL and /products stays /products.
+// so the History API can own the URL and /rentals stays /rentals.
 function pageHref(id) {
   return id === 'home' ? '/' : '/' + id;
 }
 
+// The catalog used to live at /products. Anything already linking there —
+// a bookmark, a search result, a post — should still land on the catalog
+// rather than being dropped back on the home page.
+const legacyPaths = { products: 'rentals' };
+
 function pathToPage(pathname) {
   const slug = pathname.replace(/^\/+|\/+$/g, '').toLowerCase();
-  return pageIds.includes(slug) ? slug : 'home';
+  const resolved = legacyPaths[slug] || slug;
+  return pageIds.includes(resolved) ? resolved : 'home';
 }
 
 function getCurrentPage() {
@@ -181,7 +239,7 @@ function Brand({ size = 'sm' }) {
     e(LogoMark, { size: size }),
     e('span', { className: 'brand-text' },
       e('span', { className: 'brand-name' }, 'Feyizino'),
-      e('span', { className: 'brand-sub' }, 'Events & Rentals')
+      e('span', { className: 'brand-sub' }, 'Event & Rentals')
     )
   );
 }
@@ -341,7 +399,7 @@ function HomePage() {
             e('ul', null,
               e('li', null, 'Creative concepts tailored to your story'),
               e('li', null, 'Clear pricing and thoughtful budget planning'),
-              e('li', null, 'Quality products and trusted vendor support')
+              e('li', null, 'Quality rental pieces and trusted vendor support')
             )
           )
         )
@@ -397,7 +455,7 @@ function HomePage() {
       ),
       e('section', { className: 'section' },
         e('div', { className: 'section-heading' },
-          e('p', { className: 'eyebrow' }, 'Product demo'),
+          e('p', { className: 'eyebrow' }, 'Rentals preview'),
           e('h2', null, 'A quick look at the styled pieces available for your event.')
         ),
         e('div', { className: 'product-demo' },
@@ -503,7 +561,7 @@ function AboutPage() {
           ),
           e('div', { className: 'ceo-actions' },
             e('a', { className: 'btn btn-primary', href: pageHref('contact') }, 'Plan with us'),
-            e('a', { className: 'btn btn-secondary', href: 'mailto:' + ceo.email }, 'Email the team')
+            e('a', { className: 'btn btn-secondary', href: contact.emailHref }, 'Email the team')
           )
         )
       )
@@ -557,10 +615,10 @@ function ServicesPage() {
   );
 }
 
-function ProductsPage() {
+function RentalsPage() {
   return e('div', { className: 'page-shell' },
     e('section', { className: 'section' },
-      e('p', { className: 'eyebrow' }, 'Products catalog'),
+      e('p', { className: 'eyebrow' }, 'Rentals catalog'),
       e('h2', null, 'Decor, rentals, and styling pieces curated for every celebration.'),
       e('p', null, 'From table covers and flowers to tables, chair covers, and lighting, every item is chosen to create a cohesive look.'),
       e('div', { className: 'card-grid products-grid', style: { marginTop: '24px' } },
@@ -618,10 +676,13 @@ function ContactPage() {
           e('p', { className: 'pill' }, 'Estimated starting point: ₦' + estimate.toLocaleString('en-NG'))
         ),
         e('div', { className: 'contact-info' },
-          e('span', null, 'hello@feyizinoevents.com'),
-          e('span', null, '+234 810 000 0000'),
-          e('span', null, 'Plot 8, Freedom Estate, Sagamu, Ogun State'),
-          e('span', null, 'Serving Sagamu, Abeokuta, Lagos, and Abuja')
+          e('span', null, e('a', { href: contact.emailHref }, contact.email)),
+          e('span', null, e('a', { href: contact.phoneHref }, contact.phone)),
+          e('span', null, e('a', { href: contact.officeHref }, contact.office + ' (office)')),
+          e('span', null, e('a', { href: contact.instagramHref, target: '_blank', rel: 'noopener noreferrer' }, 'Instagram ' + contact.instagram)),
+          e('span', null, contact.address),
+          e('span', null, contact.addressNote),
+          e('span', null, contact.serving)
         )
       ),
       e('form', { className: 'booking-form', onSubmit: handleSubmit },
@@ -652,7 +713,7 @@ function Footer() {
           e(LogoMark, { size: 'sm' }),
           e('span', { className: 'brand-text' },
             e('span', { className: 'brand-name' }, 'Feyizino'),
-            e('span', { className: 'brand-sub' }, 'Events & Rentals')
+            e('span', { className: 'brand-sub' }, 'Event & Rentals')
           )
         ),
         e('p', null, 'Elegant event planning, styling, and premium decor rentals for weddings, corporate launches, and private celebrations across Nigeria.')
@@ -667,14 +728,17 @@ function Footer() {
       e('div', null,
         e('h4', null, 'Get in touch'),
         e('div', { className: 'footer-links' },
-          e('a', { href: 'mailto:hello@feyizinoevents.com' }, 'hello@feyizinoevents.com'),
-          e('a', { href: 'tel:+2348100000000' }, '+234 810 000 0000'),
-          e('span', null, 'Plot 8, Freedom Estate, Sagamu, Ogun State')
+          e('a', { href: contact.emailHref }, contact.email),
+          e('a', { href: contact.phoneHref }, contact.phone),
+          e('a', { href: contact.officeHref }, contact.office + ' (office)'),
+          e('a', { href: contact.instagramHref, target: '_blank', rel: 'noopener noreferrer' }, contact.instagram),
+          e('span', null, contact.address),
+          e('span', null, contact.addressNote)
         )
       )
     ),
     e('div', { className: 'footer-bottom' },
-      e('span', null, '© ' + new Date().getFullYear() + ' Feyizino Events & Rentals. All rights reserved.'),
+      e('span', null, '© ' + new Date().getFullYear() + ' ' + contact.name + '. All rights reserved.'),
       e('span', null, 'Sagamu · Abeokuta · Lagos · Abuja')
     )
   );
@@ -682,6 +746,7 @@ function Footer() {
 
 function App() {
   const [page, setPage] = React.useState(getCurrentPage);
+  const [menuOpen, setMenuOpen] = React.useState(false);
 
   React.useEffect(() => {
     const handlePopState = () => {
@@ -691,6 +756,26 @@ function App() {
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
+
+  // Escape closes the drawer, and so does growing past the breakpoint — a menu
+  // left open while the layout switches back to the inline nav would otherwise
+  // hang over the page with no visible way to dismiss it.
+  React.useEffect(() => {
+    if (!menuOpen) return;
+    const handleKey = (event) => {
+      if (event.key === 'Escape') setMenuOpen(false);
+    };
+    const wide = window.matchMedia('(min-width: 821px)');
+    const handleWide = (event) => {
+      if (event.matches) setMenuOpen(false);
+    };
+    window.addEventListener('keydown', handleKey);
+    wide.addEventListener('change', handleWide);
+    return () => {
+      window.removeEventListener('keydown', handleKey);
+      wide.removeEventListener('change', handleWide);
+    };
+  }, [menuOpen]);
 
   // One delegated handler lets every in-app link stay a real <a href="/page">,
   // so it is crawlable and opens in a new tab, yet routes without a reload.
@@ -702,6 +787,10 @@ function App() {
     if (!link || link.target || link.hasAttribute('download')) return;
     // Leaves mailto:, tel:, and any outbound link to the browser.
     if (link.origin !== window.location.origin) return;
+
+    // Any in-app link ends the visit to the drawer, including a tap on the
+    // page the visitor is already on.
+    setMenuOpen(false);
 
     const next = pathToPage(link.pathname);
     if (link.pathname.replace(/^\/+|\/+$/g, '') && next === 'home') return;
@@ -719,9 +808,11 @@ function App() {
     about: e(AboutPage),
     portfolio: e(PortfolioPage),
     services: e(ServicesPage),
-    products: e(ProductsPage),
+    rentals: e(RentalsPage),
     contact: e(ContactPage),
   };
+
+  const drawerItems = navItems.concat([{ id: 'contact', label: 'Book your event' }]);
 
   return e('div', { onClick: handleNavClick },
     e('nav', { className: 'topbar topbar-inline' },
@@ -733,6 +824,30 @@ function App() {
           className: page === item.id ? 'is-active' : undefined,
         }, item.label)),
         e('a', { href: pageHref('contact'), className: 'nav-cta' }, 'Book')
+      ),
+      // Phones get the icon toggle instead of the inline links; CSS decides
+      // which of the two is on screen.
+      e('button', {
+        type: 'button',
+        className: 'nav-toggle' + (menuOpen ? ' is-open' : ''),
+        'aria-label': menuOpen ? 'Close menu' : 'Open menu',
+        'aria-expanded': menuOpen ? 'true' : 'false',
+        'aria-controls': 'nav-drawer',
+        onClick: () => setMenuOpen((open) => !open),
+      }, e(NavIcon, { name: menuOpen ? 'close' : 'menu' })),
+      e('div', {
+        id: 'nav-drawer',
+        className: 'nav-drawer' + (menuOpen ? ' is-open' : ''),
+        hidden: !menuOpen,
+      },
+        drawerItems.map((item) => e('a', {
+          key: item.id,
+          href: pageHref(item.id),
+          className: 'nav-drawer-item' + (page === item.id ? ' is-active' : ''),
+        },
+          e(NavIcon, { name: item.id }),
+          e('span', null, item.label)
+        ))
       )
     ),
     pages[page] || pages.home,
