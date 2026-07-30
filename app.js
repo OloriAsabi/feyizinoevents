@@ -17,6 +17,8 @@ const contact = {
   emailHref: 'mailto:FEYIZINOevents%26rentals@gmail.com',
   instagram: '@FEYIZINO_Events',
   instagramHref: 'https://www.instagram.com/feyizino_events/',
+  // wa.me wants the number in full international form with no punctuation.
+  whatsapp: '2348023190408',
   address: '9, Abiodun Ogunyanwo Street, Off Ewusi Street, Makun, Sagamu, Ogun State',
   addressNote: 'Directly beside the AUD Central Mosque building, Awolowo Market',
   serving: 'Serving Sagamu, Abeokuta, Lagos, and Abuja',
@@ -37,26 +39,26 @@ const heroSlides = [
     type: 'video',
     src: '/media/hero.mp4',
     poster: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1800&q=80',
-    alt: 'A bride and groom during their wedding ceremony',
+    alt: 'A couple holding a bouquet in warm, low light',
     // Matches the clip length, so it advances on a clean loop point.
     duration: 10000,
   },
   {
     type: 'image',
     src: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1800&q=80',
-    alt: 'Bride and groom during an outdoor ceremony',
+    alt: 'Long banquet tables laid with linen, glassware, and centrepieces',
     duration: 6500,
   },
   {
     type: 'image',
     src: 'https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=1800&q=80',
-    alt: 'Guests toasting at a candlelit reception',
+    alt: 'A floral ceremony backdrop framed by garlanded pillars',
     duration: 6500,
   },
   {
     type: 'image',
-    src: 'https://images.unsplash.com/photo-1478146896981-b80fe463b330?auto=format&fit=crop&w=1800&q=80',
-    alt: 'Floral centrepiece on a decorated banquet table',
+    src: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1800&q=80',
+    alt: 'A banquet table with layered florals, glassware, and place settings',
     duration: 6500,
   },
 ];
@@ -66,16 +68,19 @@ const featuredWorks = [
     title: 'Garden Wedding',
     description: 'Soft florals, candlelight, and a timeless palette that felt intimate and refined.',
     image: 'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80',
+    alt: 'Two ceremony chairs dressed with florals on a lawn',
   },
   {
     title: 'Birthday Soirée',
     description: 'A playful yet polished celebration with layered textures and warm lighting.',
     image: 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=80',
+    alt: 'A long table set with bud vases and folded linen',
   },
   {
     title: 'Corporate Gala',
     description: 'A refined setup focused on elegance, flow, and a memorable guest experience.',
     image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=80',
+    alt: 'A banquet table with layered florals, glassware, and place settings',
   },
 ];
 
@@ -111,13 +116,57 @@ const partners = [
   { name: 'Candlelight Events' },
 ];
 
+/* ------------------------------------------------------------------------
+ * PLACEHOLDER IMAGERY
+ *
+ * Every photograph on the site is stock, and the six below are the only stock
+ * frames in use. They were each opened and checked against what they actually
+ * depict — an earlier set had a bedroom filed under "Table Covers", a fruit
+ * flatlay under "Fresh Flowers", and a kitchen under "Backdrop Rentals".
+ *
+ * If you add to this list, LOOK at the image first. Alt text has to describe
+ * the frame that loads, not the product it is standing in for.
+ *
+ * All six should be replaced with real Feyizino photography before launch.
+ * ---------------------------------------------------------------------- */
+const photo = {
+  couple: { src: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1800&q=80', alt: 'A couple holding a bouquet in warm, low light' },
+  banquet: { src: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1800&q=80', alt: 'Long banquet tables laid with linen, glassware, and centrepieces' },
+  arch: { src: 'https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=1800&q=80', alt: 'A floral ceremony backdrop framed by garlanded pillars' },
+  chairs: { src: 'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80', alt: 'Two ceremony chairs dressed with florals on a lawn' },
+  longTable: { src: 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=80', alt: 'A long table set with bud vases and folded linen' },
+  tabletop: { src: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=80', alt: 'A banquet table with layered florals, glassware, and place settings' },
+};
+
 const products = [
-  { name: 'Table Covers', description: 'Soft linen-inspired covers in ivory, champagne, and blush for a polished base layer.', category: 'Rental decor', price: '₦12,000 / piece', size: '90" x 156"', quality: 'Premium polyester with a linen hand', quantity: '60+ available', image: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80' },
-  { name: 'Fresh Flowers', description: 'Garden-style florals, centerpieces, and statement bouquets for every table and entryway.', category: 'Floral styling', price: 'From ₦180,000 / arrangement', size: '10–12 stems', quality: 'Seasonally sourced premium blooms', quantity: 'Available for 30+ tables', image: 'https://images.unsplash.com/photo-1490818387583-1baba5e638af?auto=format&fit=crop&w=900&q=80' },
-  { name: 'Dining Tables', description: 'Round and rectangular tables that suit intimate dinners and larger guest lists.', category: 'Furniture', price: '₦48,000 / table', size: '72" x 30"', quality: 'Sturdy wood-look rental tables', quantity: '20 units in stock', image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80' },
-  { name: 'Chair Covers', description: 'Elegant chair wraps and sash details that bring a finished look to each seat.', category: 'Seating', price: '₦4,500 / chair', size: 'Standard banquet fit', quality: 'Stretch satin in neutral shades', quantity: '120 pieces available', image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&q=80' },
-  { name: 'Lighting Pieces', description: 'Candles, lanterns, and warm lighting accents that elevate the atmosphere after dark.', category: 'Ambience', price: '₦28,000 / unit', size: '15" height average', quality: 'Warm LED and candlelight options', quantity: '40 pieces ready', image: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=900&q=80' },
-  { name: 'Backdrop Rentals', description: 'Statement arches and photo-worthy installations for ceremonies and receptions.', category: 'Installations', price: '₦220,000 / set', size: '10ft x 8ft', quality: 'Hand-finished details with soft drape', quantity: '10 sets available', image: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=900&q=80' },
+  { id: 'table-covers', name: 'Table Covers', description: 'Soft linen-inspired covers in ivory, champagne, and blush for a polished base layer.', category: 'Rental decor', price: '₦12,000 / piece', size: '90" x 156"', quality: 'Premium polyester with a linen hand', quantity: '60+ available', image: photo.banquet.src, alt: photo.banquet.alt },
+  { id: 'fresh-flowers', name: 'Fresh Flowers', description: 'Garden-style florals, centerpieces, and statement bouquets for every table and entryway.', category: 'Floral styling', price: 'From ₦180,000 / arrangement', size: '10–12 stems', quality: 'Seasonally sourced premium blooms', quantity: 'Available for 30+ tables', image: photo.tabletop.src, alt: photo.tabletop.alt },
+  { id: 'dining-tables', name: 'Dining Tables', description: 'Round and rectangular tables that suit intimate dinners and larger guest lists.', category: 'Furniture', price: '₦48,000 / table', size: '72" x 30"', quality: 'Sturdy wood-look rental tables', quantity: '20 units in stock', image: photo.longTable.src, alt: photo.longTable.alt },
+  { id: 'chair-covers', name: 'Chair Covers', description: 'Elegant chair wraps and sash details that bring a finished look to each seat.', category: 'Seating', price: '₦4,500 / chair', size: 'Standard banquet fit', quality: 'Stretch satin in neutral shades', quantity: '120 pieces available', image: photo.chairs.src, alt: photo.chairs.alt },
+  { id: 'lighting-pieces', name: 'Lighting Pieces', description: 'Candles, lanterns, and warm lighting accents that elevate the atmosphere after dark.', category: 'Ambience', price: '₦28,000 / unit', size: '15" height average', quality: 'Warm LED and candlelight options', quantity: '40 pieces ready', image: photo.couple.src, alt: photo.couple.alt },
+  { id: 'backdrop-rentals', name: 'Backdrop Rentals', description: 'Statement arches and photo-worthy installations for ceremonies and receptions.', category: 'Installations', price: '₦220,000 / set', size: '10ft x 8ft', quality: 'Hand-finished details with soft drape', quantity: '10 sets available', image: photo.arch.src, alt: photo.arch.alt },
+];
+
+/**
+ * Catalog categories for the "Rental Services" carousel. `tag` is the short
+ * label that sits on the card image, mirroring the reference layout.
+ */
+const rentalCategories = [
+  { name: 'Luxury Chairs', tag: 'Seating', detail: 'Chiavari, ghost, and upholstered dining chairs in gold, blush, and clear finishes.', image: photo.chairs },
+  { name: 'Speciality Furniture', tag: 'Tables', detail: 'Round, rectangular, and cocktail tables, plus lounge sets for relaxed corners.', image: photo.longTable },
+  { name: 'Linen Collections', tag: 'Table linen', detail: 'Covers, runners, napkins, and sashes in ivory, champagne, blush, and deep tones.', image: photo.banquet },
+  { name: 'Lighting & Effects', tag: 'Ambience', detail: 'Candles, lanterns, uplighting, and warm washes that carry the room after dark.', image: photo.couple },
+  { name: 'Florals & Backdrops', tag: 'Installations', detail: 'Statement arches, centerpieces, and photo-worthy installations built to your palette.', image: photo.arch },
+  { name: 'Full Table Settings', tag: 'Tabletop', detail: 'Charger plates, glassware, and cutlery styled as one coordinated setting.', image: photo.tabletop },
+];
+
+const galleryImages = [
+  photo.chairs,
+  photo.arch,
+  photo.longTable,
+  photo.banquet,
+  photo.tabletop,
+  photo.couple,
 ];
 
 /* ------------------------------------------------------------------------
@@ -249,6 +298,347 @@ function prefersReducedMotion() {
     && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
+/* ------------------------------------------------------------------------
+ * WhatsApp
+ * ---------------------------------------------------------------------- */
+
+/** wa.me link, optionally pre-filled with a message. */
+function whatsappHref(message) {
+  const base = 'https://wa.me/' + contact.whatsapp;
+  return message ? base + '?text=' + encodeURIComponent(message) : base;
+}
+
+function WhatsAppIcon() {
+  return e('svg', {
+    viewBox: '0 0 24 24',
+    width: '22',
+    height: '22',
+    fill: 'currentColor',
+    'aria-hidden': 'true',
+    focusable: 'false',
+  }, e('path', {
+    d: 'M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.85 9.85 0 0 0 12.04 2Zm0 1.67c2.2 0 4.27.86 5.83 2.42a8.19 8.19 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.25 8.24a8.23 8.23 0 0 1-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.17 8.17 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.26-8.24Zm-4.5 4.4c-.21 0-.55.08-.84.39-.29.31-1.1 1.08-1.1 2.62s1.13 3.04 1.29 3.25c.16.21 2.19 3.34 5.3 4.56 2.59 1.02 3.12.82 3.68.77.56-.05 1.81-.74 2.07-1.46.26-.72.26-1.33.18-1.46-.08-.13-.29-.21-.6-.36-.31-.16-1.81-.9-2.09-1-.28-.1-.49-.16-.7.16-.2.31-.79 1-.97 1.2-.18.21-.36.24-.66.08-.31-.16-1.29-.48-2.46-1.52-.91-.81-1.52-1.81-1.7-2.12-.18-.31-.02-.48.14-.63.14-.14.31-.36.47-.55.15-.18.2-.31.31-.52.1-.21.05-.39-.03-.55-.08-.16-.69-1.66-.94-2.28-.25-.6-.5-.52-.69-.53h-.6Z',
+  }));
+}
+
+function CartIcon() {
+  return e('svg', {
+    viewBox: '0 0 24 24',
+    width: '22',
+    height: '22',
+    fill: 'none',
+    stroke: 'currentColor',
+    strokeWidth: '1.7',
+    strokeLinecap: 'round',
+    strokeLinejoin: 'round',
+    'aria-hidden': 'true',
+    focusable: 'false',
+  },
+    e('path', { d: 'M3 4h2.2l2.1 10.4a1.8 1.8 0 0 0 1.8 1.4h7.9a1.8 1.8 0 0 0 1.8-1.4L20.5 7H6' }),
+    e('circle', { cx: '9.5', cy: '19.5', r: '1.4' }),
+    e('circle', { cx: '17', cy: '19.5', r: '1.4' })
+  );
+}
+
+/* ------------------------------------------------------------------------
+ * Quote basket
+ *
+ * Rental pricing depends on dates, quantities, and logistics, so this is a
+ * request basket rather than a checkout: it collects items and hands them to
+ * WhatsApp as a written enquiry. Nothing is charged and no money total is shown.
+ * ---------------------------------------------------------------------- */
+
+const CART_KEY = 'feyizino-cart';
+
+const CartContext = React.createContext(null);
+
+function useCart() {
+  return React.useContext(CartContext);
+}
+
+function readStoredCart() {
+  try {
+    const raw = window.localStorage.getItem(CART_KEY);
+    const parsed = raw ? JSON.parse(raw) : [];
+    // Anything hand-edited or left by an older build is discarded rather than
+    // trusted, so a bad entry can never break the drawer.
+    return Array.isArray(parsed)
+      ? parsed.filter((item) => item && typeof item.id === 'string' && Number(item.qty) > 0)
+      : [];
+  } catch (error) {
+    return [];
+  }
+}
+
+function CartProvider({ children }) {
+  const [items, setItems] = React.useState(readStoredCart);
+  const [open, setOpen] = React.useState(false);
+
+  React.useEffect(() => {
+    try {
+      window.localStorage.setItem(CART_KEY, JSON.stringify(items));
+    } catch (error) {
+      /* Private browsing and full quotas are not worth failing a render over. */
+    }
+  }, [items]);
+
+  const add = React.useCallback((product) => {
+    setItems((prev) => {
+      const found = prev.find((item) => item.id === product.id);
+      if (found) {
+        return prev.map((item) => (item.id === product.id ? { ...item, qty: item.qty + 1 } : item));
+      }
+      return prev.concat([{ id: product.id, name: product.name, price: product.price, qty: 1 }]);
+    });
+    setOpen(true);
+  }, []);
+
+  const setQty = React.useCallback((id, qty) => {
+    setItems((prev) => (qty <= 0
+      ? prev.filter((item) => item.id !== id)
+      : prev.map((item) => (item.id === id ? { ...item, qty: qty } : item))));
+  }, []);
+
+  const remove = React.useCallback((id) => {
+    setItems((prev) => prev.filter((item) => item.id !== id));
+  }, []);
+
+  const clear = React.useCallback(() => setItems([]), []);
+
+  const count = items.reduce((total, item) => total + item.qty, 0);
+
+  const value = { items, count, add, setQty, remove, clear, open, setOpen };
+  return e(CartContext.Provider, { value: value }, children);
+}
+
+/** The enquiry text handed to WhatsApp when the basket is submitted. */
+function buildOrderMessage(items) {
+  const lines = items.map((item, i) => `${i + 1}. ${item.name} — qty ${item.qty} (${item.price})`);
+  return [
+    'Hello Feyizino Events, I would like to request the following rental items:',
+    '',
+    lines.join('\n'),
+    '',
+    'Please confirm availability and pricing for my event date.',
+  ].join('\n');
+}
+
+function CartFab() {
+  const cart = useCart();
+  return e('button', {
+    type: 'button',
+    className: 'fab fab-cart',
+    'aria-label': `Open rental basket, ${cart.count} item${cart.count === 1 ? '' : 's'}`,
+    'aria-expanded': cart.open ? 'true' : 'false',
+    onClick: () => cart.setOpen(true),
+  },
+    e(CartIcon),
+    e('span', { className: 'fab-count' }, cart.count)
+  );
+}
+
+function WhatsAppFab() {
+  return e('a', {
+    className: 'fab fab-whatsapp',
+    href: whatsappHref('Hello Feyizino Events, I would like to enquire about your event services.'),
+    target: '_blank',
+    rel: 'noopener noreferrer',
+    'aria-label': 'Chat with us on WhatsApp',
+  }, e(WhatsAppIcon));
+}
+
+function CartDrawer() {
+  const cart = useCart();
+  // 'submit' and 'clear' each raise their own confirm step, so neither action
+  // can be triggered by a single stray tap.
+  const [confirming, setConfirming] = React.useState('');
+  const [sent, setSent] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!cart.open) return undefined;
+    const handleKey = (event) => {
+      if (event.key === 'Escape') cart.setOpen(false);
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, [cart.open, cart]);
+
+  // Reopening starts clean rather than resuming a half-finished confirmation.
+  React.useEffect(() => {
+    if (!cart.open) {
+      setConfirming('');
+      setSent(false);
+    }
+  }, [cart.open]);
+
+  if (!cart.open) return null;
+
+  const submitOrder = () => {
+    window.open(whatsappHref(buildOrderMessage(cart.items)), '_blank', 'noopener,noreferrer');
+    setConfirming('');
+    setSent(true);
+  };
+
+  const confirmBar = (question, onYes) => e('div', { className: 'cart-confirm' },
+    e('p', null, question),
+    e('div', { className: 'cart-confirm-actions' },
+      e('button', { type: 'button', className: 'btn btn-primary btn-sm', onClick: onYes }, 'Yes'),
+      e('button', { type: 'button', className: 'btn btn-ghost btn-sm', onClick: () => setConfirming('') }, 'No')
+    )
+  );
+
+  return e('div', { className: 'cart-layer' },
+    e('div', { className: 'cart-backdrop', onClick: () => cart.setOpen(false) }),
+    e('aside', {
+      className: 'cart-drawer',
+      role: 'dialog',
+      'aria-modal': 'true',
+      'aria-label': 'Rental request basket',
+    },
+      e('div', { className: 'cart-head' },
+        e('h3', null, 'Your rental request'),
+        e('button', {
+          type: 'button',
+          className: 'cart-close',
+          'aria-label': 'Close basket',
+          onClick: () => cart.setOpen(false),
+        }, e(NavIcon, { name: 'close' }))
+      ),
+
+      cart.items.length === 0
+        ? e('div', { className: 'cart-empty' },
+            e('p', null, sent ? 'Request sent. We will confirm availability shortly.' : 'Your basket is empty.'),
+            e('a', { className: 'btn btn-primary', href: pageHref('rentals'), onClick: () => cart.setOpen(false) }, 'Browse the catalog')
+          )
+        : e(React.Fragment, null,
+            e('ul', { className: 'cart-list' },
+              cart.items.map((item) => e('li', { key: item.id, className: 'cart-item' },
+                e('div', { className: 'cart-item-copy' },
+                  e('strong', null, item.name),
+                  e('span', null, item.price)
+                ),
+                e('div', { className: 'cart-qty' },
+                  e('button', {
+                    type: 'button',
+                    'aria-label': 'Decrease quantity of ' + item.name,
+                    onClick: () => cart.setQty(item.id, item.qty - 1),
+                  }, '−'),
+                  e('span', { 'aria-label': 'Quantity' }, item.qty),
+                  e('button', {
+                    type: 'button',
+                    'aria-label': 'Increase quantity of ' + item.name,
+                    onClick: () => cart.setQty(item.id, item.qty + 1),
+                  }, '+')
+                ),
+                e('button', {
+                  type: 'button',
+                  className: 'cart-remove',
+                  'aria-label': 'Remove ' + item.name,
+                  onClick: () => cart.remove(item.id),
+                }, '×')
+              ))
+            ),
+            e('div', { className: 'cart-total' },
+              e('span', null, 'Total items'),
+              e('strong', null, cart.count)
+            ),
+            confirming === 'submit'
+              ? confirmBar('Send this request on WhatsApp?', submitOrder)
+              : null,
+            confirming === 'clear'
+              ? confirmBar('Remove everything from the basket?', () => { cart.clear(); setConfirming(''); })
+              : null,
+            confirming === ''
+              ? e('div', { className: 'cart-actions' },
+                  e('button', {
+                    type: 'button',
+                    className: 'btn btn-primary',
+                    onClick: () => setConfirming('submit'),
+                  }, 'Request order'),
+                  e('button', {
+                    type: 'button',
+                    className: 'btn btn-ghost',
+                    onClick: () => setConfirming('clear'),
+                  }, 'Clear')
+                )
+              : null,
+            e('p', { className: 'cart-note' }, 'Nothing is charged here — we confirm availability and pricing before anything is booked.')
+          )
+    )
+  );
+}
+
+/* ------------------------------------------------------------------------
+ * Shared section pieces
+ * ---------------------------------------------------------------------- */
+
+/** Section title on the left, "view all" link on the right. */
+function SectionBar({ eyebrow, title, href, linkLabel }) {
+  return e('div', { className: 'section-bar' },
+    e('div', null,
+      eyebrow ? e('p', { className: 'eyebrow' }, eyebrow) : null,
+      e('h2', null, title)
+    ),
+    href ? e('a', { className: 'section-link', href: href }, linkLabel, e('span', { 'aria-hidden': 'true' }, '›')) : null
+  );
+}
+
+/**
+ * Horizontal category rail. Scroll-snapping keeps it usable as a plain swipe on
+ * touch, and the arrows page it by one card for pointer users.
+ */
+function CategoryCarousel() {
+  const trackRef = React.useRef(null);
+
+  const page = (direction) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const card = track.querySelector('.category-card');
+    // Falls back to most of the visible width when the rail is empty.
+    const step = card ? card.getBoundingClientRect().width + 22 : track.clientWidth * 0.8;
+    track.scrollBy({ left: step * direction, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+  };
+
+  return e('div', { className: 'carousel' },
+    e('div', { className: 'carousel-track', ref: trackRef },
+      rentalCategories.map((category) => e('article', { key: category.name, className: 'category-card' },
+        e('div', { className: 'category-media' },
+          e('img', { src: category.image.src, alt: category.image.alt, loading: 'lazy' }),
+          e('span', { className: 'category-tag' }, category.tag)
+        ),
+        e('div', { className: 'category-body' },
+          e('h3', null, category.name),
+          e('p', null, category.detail),
+          e('a', { className: 'category-link', href: pageHref('rentals') }, 'Visit section', e('span', { 'aria-hidden': 'true' }, '›'))
+        )
+      ))
+    ),
+    e('div', { className: 'carousel-controls' },
+      e('button', {
+        type: 'button',
+        className: 'carousel-arrow',
+        'aria-label': 'Previous categories',
+        onClick: () => page(-1),
+      }, '‹'),
+      e('button', {
+        type: 'button',
+        className: 'carousel-arrow',
+        'aria-label': 'Next categories',
+        onClick: () => page(1),
+      }, '›')
+    )
+  );
+}
+
+function GalleryGrid({ limit }) {
+  const shown = limit ? galleryImages.slice(0, limit) : galleryImages;
+  return e('div', { className: 'gallery-grid' },
+    shown.map((image, i) => e('figure', { key: image.src + i, className: 'gallery-tile' },
+      e('img', { src: image.src, alt: image.alt, loading: 'lazy' })
+    ))
+  );
+}
+
 function HeroSlider() {
   const [index, setIndex] = React.useState(0);
   const [paused, setPaused] = React.useState(false);
@@ -362,8 +752,13 @@ function HomePage() {
           e('h1', null, 'Transforming every celebration into a ', e('span', { className: 'gold-text' }, 'signature experience'), '.'),
           e('p', { className: 'lead' }, 'Feyizino Events delivers polished event design, seamless coordination, and premium decor for weddings, corporate launches, and private gatherings across Nigeria.'),
           e('div', { className: 'hero-actions' },
-            e('a', { className: 'btn btn-primary', href: pageHref('contact') }, 'Book your event'),
-            e('a', { className: 'btn btn-secondary', href: pageHref('portfolio') }, 'View our work')
+            e('a', {
+              className: 'btn btn-whatsapp',
+              href: whatsappHref('Hello Feyizino Events, I would like to plan an event with you.'),
+              target: '_blank',
+              rel: 'noopener noreferrer',
+            }, e(WhatsAppIcon), 'Send us a DM on WhatsApp'),
+            e('a', { className: 'btn btn-secondary', href: pageHref('rentals') }, 'View our rental catalog')
           ),
           e('div', { className: 'hero-details' },
             e('span', null, 'Based in Sagamu, Ogun'),
@@ -405,6 +800,15 @@ function HomePage() {
         )
       ),
       e('section', { className: 'section' },
+        e(SectionBar, {
+          eyebrow: 'Rental services',
+          title: 'A wide variety of luxury pieces for your next event.',
+          href: pageHref('rentals'),
+          linkLabel: 'View more',
+        }),
+        e(CategoryCarousel)
+      ),
+      e('section', { className: 'section' },
         e('div', { className: 'section-heading' },
           e('p', { className: 'eyebrow' }, 'Service areas'),
           e('h2', null, 'Proudly serving Sagamu, Ogun, Lagos, and Abuja.'),
@@ -424,13 +828,22 @@ function HomePage() {
         ),
         e('div', { className: 'card-grid' },
           featuredWorks.map((work) => e('article', { key: work.title, className: 'card' },
-            e('img', { src: work.image, alt: work.title }),
+            e('img', { src: work.image, alt: work.alt }),
             e('div', { className: 'card-body' },
               e('h3', null, work.title),
               e('p', null, work.description)
             )
           ))
         )
+      ),
+      e('section', { className: 'section' },
+        e(SectionBar, {
+          eyebrow: 'Gallery',
+          title: 'Browse gallery',
+          href: pageHref('portfolio'),
+          linkLabel: 'See more',
+        }),
+        e(GalleryGrid, { limit: 6 })
       ),
       e('section', { className: 'section testimonials-section' },
         e('div', { className: 'section-heading' },
@@ -589,13 +1002,18 @@ function PortfolioPage() {
       e('h2', null, 'A closer look at the work behind the experience.'),
       e('div', { className: 'card-grid', style: { marginTop: '24px' } },
         featuredWorks.map((item) => e('article', { key: item.title, className: 'card' },
-          e('img', { src: item.image, alt: item.title }),
+          e('img', { src: item.image, alt: item.alt }),
           e('div', { className: 'card-body' },
             e('h3', null, item.title),
             e('p', null, item.description)
           )
         ))
       )
+    ),
+    e('div', { className: 'section-divider' }, e('span', null)),
+    e('section', { className: 'section' },
+      e(SectionBar, { eyebrow: 'Gallery', title: 'Browse gallery' }),
+      e(GalleryGrid)
     )
   );
 }
@@ -616,14 +1034,17 @@ function ServicesPage() {
 }
 
 function RentalsPage() {
+  const cart = useCart();
+  const inBasket = (id) => cart.items.some((item) => item.id === id);
+
   return e('div', { className: 'page-shell' },
     e('section', { className: 'section' },
       e('p', { className: 'eyebrow' }, 'Rentals catalog'),
       e('h2', null, 'Decor, rentals, and styling pieces curated for every celebration.'),
-      e('p', null, 'From table covers and flowers to tables, chair covers, and lighting, every item is chosen to create a cohesive look.'),
+      e('p', { className: 'lead' }, 'From table covers and flowers to tables, chair covers, and lighting, every item is chosen to create a cohesive look. Add what you need to your request and we will confirm availability for your date.'),
       e('div', { className: 'card-grid products-grid', style: { marginTop: '24px' } },
-        products.map((item) => e('article', { key: item.name, className: 'card product-card' },
-          item.image ? e('img', { src: item.image, alt: item.name }) : null,
+        products.map((item) => e('article', { key: item.id, className: 'card product-card' },
+          item.image ? e('img', { src: item.image, alt: item.alt || item.name }) : null,
           e('div', { className: 'card-body' },
             e('span', null, item.category),
             e('h3', null, item.name),
@@ -645,10 +1066,23 @@ function RentalsPage() {
                 e('strong', null, 'Quantity'),
                 e('span', null, item.quantity)
               )
-            )
+            ),
+            e('button', {
+              type: 'button',
+              className: 'btn btn-primary btn-block',
+              onClick: () => cart.add(item),
+            }, inBasket(item.id) ? 'Add another' : 'Add to request')
           )
         ))
       )
+    ),
+    e('div', { className: 'section-divider' }, e('span', null)),
+    e('section', { className: 'section' },
+      e(SectionBar, {
+        eyebrow: 'Browse by category',
+        title: 'Explore the collections.',
+      }),
+      e(CategoryCarousel)
     )
   );
 }
@@ -731,6 +1165,7 @@ function Footer() {
           e('a', { href: contact.emailHref }, contact.email),
           e('a', { href: contact.phoneHref }, contact.phone),
           e('a', { href: contact.officeHref }, contact.office + ' (office)'),
+          e('a', { href: whatsappHref(''), target: '_blank', rel: 'noopener noreferrer' }, 'WhatsApp us'),
           e('a', { href: contact.instagramHref, target: '_blank', rel: 'noopener noreferrer' }, contact.instagram),
           e('span', null, contact.address),
           e('span', null, contact.addressNote)
@@ -814,7 +1249,7 @@ function App() {
 
   const drawerItems = navItems.concat([{ id: 'contact', label: 'Book your event' }]);
 
-  return e('div', { onClick: handleNavClick },
+  return e(CartProvider, null, e('div', { onClick: handleNavClick },
     e('nav', { className: 'topbar topbar-inline' },
       e(Brand),
       e('div', { className: 'nav-links' },
@@ -851,8 +1286,13 @@ function App() {
       )
     ),
     pages[page] || pages.home,
-    e(Footer)
-  );
+    e(Footer),
+    e('div', { className: 'fab-stack' },
+      e(WhatsAppFab),
+      e(CartFab)
+    ),
+    e(CartDrawer)
+  ));
 }
 
 function hideLoader() {
