@@ -1,3 +1,6 @@
 node_modules/
 dist/
 .DS_Store
+
+# Raw photo drops from WhatsApp. Web-ready copies live in media/rentals/.
+assets/

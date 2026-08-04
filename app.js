@@ -21,7 +21,7 @@ const contact = {
   whatsapp: '2348023190408',
   address: '9, Abiodun Ogunyanwo Street, Off Ewusi Street, Makun, Sagamu, Ogun State',
   addressNote: 'Directly beside the AUD Central Mosque building, Awolowo Market',
-  serving: 'Serving Sagamu, Abeokuta, Lagos, and Abuja',
+  serving: 'Serving Ibadan, Sagamu, Abeokuta, Lagos, Osun, and Ekiti',
 };
 
 /**
@@ -105,7 +105,7 @@ const testimonials = [
   {
     quote: 'The team transformed our launch into a beautifully styled event with perfect flow, professional service, and strong vendor support.',
     author: 'Olamide',
-    role: 'Corporate client, Abuja',
+    role: 'Corporate client, Ibadan',
   },
 ];
 
@@ -138,26 +138,235 @@ const photo = {
   tabletop: { src: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=80', alt: 'A banquet table with layered florals, glassware, and place settings' },
 };
 
+/* ------------------------------------------------------------------------
+ * COLOURWAYS — real stock, photographed on site
+ *
+ * Unlike `photo` above, everything here is Feyizino's own inventory. The
+ * source frames are the WhatsApp drop in assets/ (gitignored, full
+ * resolution); the copies under media/rentals/ are resized to 900px and are
+ * what ships.
+ *
+ * `hex` is the chip shown in the swatch row. Each one was read off the
+ * photograph it sits beside — sampling the frame automatically kept picking
+ * the branded backdrop behind a table, or the shadow between two blooms,
+ * rather than the product. If you add a colour, set its hex by looking at
+ * the fabric or the petals, and check it against the photo afterwards.
+ * ---------------------------------------------------------------------- */
+const tableCoverColors = [
+  { name: 'White', hex: '#d0d9dc' },
+  { name: 'White Damask', hex: '#dce1eb' },
+  { name: 'Champagne', hex: '#e0e0d7' },
+  { name: 'Antique Gold', hex: '#d7b77f' },
+  { name: 'Taupe', hex: '#c6a077' },
+  { name: 'Blush', hex: '#efa6b4' },
+  { name: 'Dusty Rose', hex: '#e8aaaa' },
+  { name: 'Fuchsia', hex: '#fd5991' },
+  { name: 'Red', hex: '#ca445f' },
+  { name: 'Apricot', hex: '#eab06f' },
+  { name: 'Amber', hex: '#d29847' },
+  { name: 'Marigold', hex: '#ebcb67' },
+  { name: 'Yellow', hex: '#e1cb2e' },
+  { name: 'Olive', hex: '#a3b661' },
+  { name: 'Sage', hex: '#8bbca8' },
+  { name: 'Emerald', hex: '#5aa88c' },
+  { name: 'Sea Green', hex: '#62b3a8' },
+  { name: 'Teal', hex: '#2f8f80' },
+  { name: 'Teal Blue', hex: '#2b87a4' },
+  { name: 'Powder Blue', hex: '#cfe3e0' },
+  { name: 'Cornflower Blue', hex: '#6fb3f9' },
+  { name: 'Royal Blue', hex: '#035fea' },
+  { name: 'Lilac', hex: '#e1bef2' },
+  { name: 'Orchid', hex: '#d575d8' },
+  { name: 'Black', hex: '#2c2c30' },
+];
+
+const flowerColors = [
+  { name: 'White', hex: '#f2efe8' },
+  { name: 'Ivory', hex: '#ece0cd' },
+  { name: 'Champagne', hex: '#e6c9a8' },
+  { name: 'Blush', hex: '#f4b9bd' },
+  { name: 'Pink', hex: '#e87ba6' },
+  { name: 'Dusty Rose', hex: '#c69099' },
+  { name: 'Fuchsia', hex: '#d5187a' },
+  { name: 'Red', hex: '#b81f2e' },
+  { name: 'Coral', hex: '#e2724f' },
+  { name: 'Terracotta', hex: '#c2643c' },
+  { name: 'Orange', hex: '#e2711d' },
+  { name: 'Apricot', hex: '#f0a765' },
+  { name: 'Mustard', hex: '#e0a93a' },
+  { name: 'Olive', hex: '#9aa04a' },
+  { name: 'Green', hex: '#4f9e3f' },
+  { name: 'Dusty Blue', hex: '#93a8b4' },
+  { name: 'Sky Blue', hex: '#4fa8d8' },
+  { name: 'Royal Blue', hex: '#2340c0' },
+  { name: 'Lilac', hex: '#b192cf' },
+  { name: 'Purple', hex: '#8b2fb5' },
+  { name: 'Silver', hex: '#9a9a96' },
+  { name: 'Black', hex: '#2a2a2e' },
+  { name: 'Dried Naturals', hex: '#d9b98a' },
+];
+
+function colorSlug(name) {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+}
+
+/** Fills in the slug and image path so each colour is declared once, by name. */
+function colorway(folder, subject) {
+  return (color) => ({
+    name: color.name,
+    hex: color.hex,
+    slug: colorSlug(color.name),
+    image: '/media/rentals/' + folder + '/' + colorSlug(color.name) + '.jpg',
+    alt: color.name + ' ' + subject,
+  });
+}
+
+/* ------------------------------------------------------------------------
+ * THE CATALOG
+ *
+ * These are the categories Feyizino actually rents. Two of them — table
+ * covers and flowers — have been photographed and priced; the rest are
+ * listed with a placeholder tile and "Price on request" until their photos
+ * and rates come in.
+ *
+ * Do not invent a price, a size, or a stock count to fill a gap. A card
+ * renders only the `meta` rows it is given, so leaving one out is fine.
+ * ---------------------------------------------------------------------- */
 const products = [
-  { id: 'table-covers', name: 'Table Covers', description: 'Soft linen-inspired covers in ivory, champagne, and blush for a polished base layer.', category: 'Rental decor', price: '₦12,000 / piece', size: '90" x 156"', quality: 'Premium polyester with a linen hand', quantity: '60+ available', image: photo.banquet.src, alt: photo.banquet.alt },
-  { id: 'fresh-flowers', name: 'Fresh Flowers', description: 'Garden-style florals, centerpieces, and statement bouquets for every table and entryway.', category: 'Floral styling', price: 'From ₦180,000 / arrangement', size: '10–12 stems', quality: 'Seasonally sourced premium blooms', quantity: 'Available for 30+ tables', image: photo.tabletop.src, alt: photo.tabletop.alt },
-  { id: 'dining-tables', name: 'Dining Tables', description: 'Round and rectangular tables that suit intimate dinners and larger guest lists.', category: 'Furniture', price: '₦48,000 / table', size: '72" x 30"', quality: 'Sturdy wood-look rental tables', quantity: '20 units in stock', image: photo.longTable.src, alt: photo.longTable.alt },
-  { id: 'chair-covers', name: 'Chair Covers', description: 'Elegant chair wraps and sash details that bring a finished look to each seat.', category: 'Seating', price: '₦4,500 / chair', size: 'Standard banquet fit', quality: 'Stretch satin in neutral shades', quantity: '120 pieces available', image: photo.chairs.src, alt: photo.chairs.alt },
-  { id: 'lighting-pieces', name: 'Lighting Pieces', description: 'Candles, lanterns, and warm lighting accents that elevate the atmosphere after dark.', category: 'Ambience', price: '₦28,000 / unit', size: '15" height average', quality: 'Warm LED and candlelight options', quantity: '40 pieces ready', image: photo.couple.src, alt: photo.couple.alt },
-  { id: 'backdrop-rentals', name: 'Backdrop Rentals', description: 'Statement arches and photo-worthy installations for ceremonies and receptions.', category: 'Installations', price: '₦220,000 / set', size: '10ft x 8ft', quality: 'Hand-finished details with soft drape', quantity: '10 sets available', image: photo.arch.src, alt: photo.arch.alt },
+  {
+    id: 'table-covers',
+    name: 'Table Covers',
+    category: 'Table linen',
+    description: 'Full-drop covers for round banquet tables, in a satin finish with a few damask weaves.',
+    price: '₦1,000 each',
+    colors: tableCoverColors.map(colorway('table-covers', 'table cover draped over a round banquet table')),
+    // The swatch row runs pale to dark so the range reads as a chart. That
+    // puts white first, which is the dullest frame to open on, hence the
+    // separate opening colour.
+    defaultColor: 'Fuchsia',
+    meta: { Colours: '25 available', Fit: 'Round banquet, full drop' },
+  },
+  {
+    id: 'flowers',
+    name: 'Flowers',
+    category: 'Florals',
+    description: 'Silk blooms, fillers, and foliage sold by the strand or the bunch, for centrepieces, garlands, and installations.',
+    price: '₦250 – ₦600 per strand / bunch',
+    colors: flowerColors.map(colorway('flowers', 'silk flowers')),
+    defaultColor: 'Pink',
+    meta: { Colours: '23 available', Sold: 'By the strand or bunch' },
+  },
+  {
+    id: 'centre-pieces',
+    name: 'Centre Pieces',
+    category: 'Florals',
+    description: 'Table centrepieces built to your palette, from low arrangements to raised stands.',
+  },
+  {
+    id: 'iron-vases',
+    name: 'Iron Vases',
+    category: 'Decor',
+    description: 'Metal vases and stands for florals, at a range of heights.',
+  },
+  {
+    id: 'vip-tables',
+    name: 'VIP Tables',
+    category: 'Tables',
+    description: 'Feature tables for the couple, the high table, and reserved guests.',
+  },
+  {
+    id: 'vip-chairs',
+    name: 'VIP Chairs',
+    category: 'Seating',
+    description: 'Statement seating for the couple and the high table.',
+  },
+  {
+    id: 'chairs',
+    name: 'Chairs',
+    category: 'Seating',
+    description: 'Guest seating for the main floor, in quantity.',
+  },
+  {
+    id: 'kids-chairs',
+    name: 'Kids Chairs',
+    category: 'Seating',
+    description: 'Smaller seating for children’s tables and family celebrations.',
+  },
+  {
+    id: 'chair-covers',
+    name: 'Chair Covers',
+    category: 'Seating',
+    description: 'Covers and sashes that finish each seat to match the table linen.',
+  },
+  {
+    id: 'velvets',
+    name: 'Velvets',
+    category: 'Table linen',
+    description: 'Velvet drapes and covers for a heavier, deeper finish.',
+  },
+  {
+    id: 'spandex',
+    name: 'Spandex',
+    category: 'Table linen',
+    description: 'Stretch covers that pull tight to the frame for a clean, fitted line.',
+  },
+  {
+    id: 'sofas',
+    name: 'Sofas',
+    category: 'Seating',
+    description: 'Lounge seating for the parents’ section and relaxed corners.',
+  },
+  {
+    id: 'candles',
+    name: 'Candles',
+    category: 'Decor',
+    description: 'Candles and holders for tables and walkways.',
+  },
+  {
+    id: 'installation-irons',
+    name: 'Installation Irons',
+    category: 'Installations',
+    description: 'Metal frames and stands that carry backdrops, arches, and floral installations.',
+  },
+  {
+    id: 'rugs-astro-turf',
+    name: 'Rugs / Astro Turf',
+    category: 'Installations',
+    description: 'Floor covering for aisles, stages, and photo areas.',
+  },
+  {
+    id: '3d-props',
+    name: '3D Props',
+    category: 'Decor',
+    description: 'Standing props and sculpted pieces for entrances and photo moments.',
+  },
+  {
+    id: 'tables',
+    name: 'Tables',
+    category: 'Tables',
+    description: 'Round and rectangular guest tables, in quantity.',
+  },
+  {
+    id: 'boards',
+    name: 'Boards',
+    category: 'Decor',
+    description: 'Signage and display boards for welcome points, seating plans, and menus.',
+  },
 ];
 
 /**
- * Catalog categories for the "Rental Services" carousel. `tag` is the short
- * label that sits on the card image, mirroring the reference layout.
+ * Collections for the home page carousel. `tag` is the short label that sits
+ * on the card image, mirroring the reference layout. Each one groups the
+ * catalog below it; the two we have photographed carry a real frame, and the
+ * rest fall back to the placeholder tile rather than a borrowed stock photo.
  */
 const rentalCategories = [
-  { name: 'Luxury Chairs', tag: 'Seating', detail: 'Chiavari, ghost, and upholstered dining chairs in gold, blush, and clear finishes.', image: photo.chairs },
-  { name: 'Speciality Furniture', tag: 'Tables', detail: 'Round, rectangular, and cocktail tables, plus lounge sets for relaxed corners.', image: photo.longTable },
-  { name: 'Linen Collections', tag: 'Table linen', detail: 'Covers, runners, napkins, and sashes in ivory, champagne, blush, and deep tones.', image: photo.banquet },
-  { name: 'Lighting & Effects', tag: 'Ambience', detail: 'Candles, lanterns, uplighting, and warm washes that carry the room after dark.', image: photo.couple },
-  { name: 'Florals & Backdrops', tag: 'Installations', detail: 'Statement arches, centerpieces, and photo-worthy installations built to your palette.', image: photo.arch },
-  { name: 'Full Table Settings', tag: 'Tabletop', detail: 'Charger plates, glassware, and cutlery styled as one coordinated setting.', image: photo.tabletop },
+  { name: 'Table Covers', tag: 'Table linen', detail: 'Full-drop satin and damask covers for round banquet tables, in twenty-five colours.', image: { src: '/media/rentals/table-covers/fuchsia.jpg', alt: 'Fuchsia table cover draped over a round banquet table' } },
+  { name: 'Flowers', tag: 'Florals', detail: 'Silk blooms, fillers, and foliage by the strand or the bunch, in twenty-three colourways.', image: { src: '/media/rentals/flowers/range.jpg', alt: 'Silk flowers in every colour laid out together' } },
+  { name: 'Seating', tag: 'Chairs', detail: 'VIP chairs, guest chairs, kids chairs, chair covers, and lounge sofas for the parents.' },
+  { name: 'Tables', tag: 'Furniture', detail: 'Guest tables and VIP tables for the couple, the high table, and reserved seating.' },
+  { name: 'Decor & Props', tag: 'Styling', detail: 'Iron vases, candles, 3D props, and signage boards for entrances and photo moments.' },
+  { name: 'Installations', tag: 'Build', detail: 'Installation irons that carry backdrops and arches, plus rugs and astro turf underfoot.' },
 ];
 
 const galleryImages = [
@@ -196,7 +405,7 @@ const ceo = {
 const aboutStats = [
   { value: '10+', label: 'Years planning celebrations' },
   { value: '250+', label: 'Events delivered' },
-  { value: '4', label: 'Cities served' },
+  { value: '6', label: 'Cities served' },
   { value: '40+', label: 'Vendor partners' },
 ];
 
@@ -603,7 +812,9 @@ function CategoryCarousel() {
     e('div', { className: 'carousel-track', ref: trackRef },
       rentalCategories.map((category) => e('article', { key: category.name, className: 'category-card' },
         e('div', { className: 'category-media' },
-          e('img', { src: category.image.src, alt: category.image.alt, loading: 'lazy' }),
+          category.image
+            ? e('img', { src: category.image.src, alt: category.image.alt, loading: 'lazy' })
+            : e(ProductPlaceholder),
           e('span', { className: 'category-tag' }, category.tag)
         ),
         e('div', { className: 'category-body' },
@@ -748,7 +959,7 @@ function HomePage() {
       e(HeroSlider),
       e('section', { className: 'hero-content' },
         e('div', { className: 'hero-copy' },
-          e('p', { className: 'eyebrow' }, 'Sagamu · Lagos · Abuja'),
+          e('p', { className: 'eyebrow' }, 'Ibadan · Sagamu · Lagos · Abeokuta'),
           e('h1', null, 'Transforming every celebration into a ', e('span', { className: 'gold-text' }, 'signature experience'), '.'),
           e('p', { className: 'lead' }, 'Feyizino Events delivers polished event design, seamless coordination, and premium decor for weddings, corporate launches, and private gatherings across Nigeria.'),
           e('div', { className: 'hero-actions' },
@@ -762,7 +973,7 @@ function HomePage() {
           ),
           e('div', { className: 'hero-details' },
             e('span', null, 'Based in Sagamu, Ogun'),
-            e('span', null, 'Serving Lagos, Abuja, and beyond')
+            e('span', null, 'Serving Ibadan, Lagos, Osun, Ekiti, and beyond')
           )
         )
       )
@@ -811,8 +1022,8 @@ function HomePage() {
       e('section', { className: 'section' },
         e('div', { className: 'section-heading' },
           e('p', { className: 'eyebrow' }, 'Service areas'),
-          e('h2', null, 'Proudly serving Sagamu, Ogun, Lagos, and Abuja.'),
-          e('p', null, 'Feyizino Events brings premium event planning and styling to the South West and the Federal Capital Territory.')
+          e('h2', null, 'Proudly serving Ibadan, Sagamu, Abeokuta, Lagos, Osun, and Ekiti.'),
+          e('p', null, 'Feyizino Events brings premium event planning and styling across the South West.')
         ),
         e('div', { className: 'card-grid', style: { marginTop: '24px' } },
           eventCategories.map((item) => e('article', { key: item.title, className: 'card product-card' },
@@ -934,7 +1145,7 @@ function AboutPage() {
       e('div', { className: 'section-heading' },
         e('p', { className: 'eyebrow' }, 'About us'),
         e('h2', null, 'An event studio built on ', e('span', { className: 'gold-text' }, 'detail'), ', not noise.'),
-        e('p', { className: 'lead' }, 'Feyizino Events plans, styles, and equips celebrations across Nigeria. We work from Sagamu, Ogun State, and travel to Lagos, Abuja, and beyond for weddings, corporate launches, and private gatherings.')
+        e('p', { className: 'lead' }, 'Feyizino Events plans, styles, and equips celebrations across Nigeria. We work from Sagamu, Ogun State, and travel to Ibadan, Abeokuta, Lagos, Osun, and Ekiti for weddings, corporate launches, and private gatherings.')
       ),
       e('div', { className: 'about-story' },
         e('div', { className: 'panel' },
@@ -1033,56 +1244,125 @@ function ServicesPage() {
   );
 }
 
-function RentalsPage() {
-  const cart = useCart();
-  const inBasket = (id) => cart.items.some((item) => item.id === id);
+/**
+ * The tile that stands in for a category we have not photographed yet. It
+ * borrows the logo monogram rather than a stock photo of someone else's
+ * event, so nothing on the catalog claims to be stock we do not own.
+ */
+function ProductPlaceholder() {
+  // The monogram is a background rather than an <img>, so it stays clear of
+  // the `.card img` / `.category-media img` sizing rules it would otherwise
+  // inherit. It is decorative either way, so it needs no alt text.
+  return e('div', { className: 'product-placeholder' },
+    e('span', { className: 'product-placeholder-mark' }),
+    e('span', { className: 'product-placeholder-note' }, 'Photo coming soon')
+  );
+}
 
+/**
+ * Colour chips for a product's range. Chips are flat colour rather than
+ * thumbnails: at swatch size a photograph of a draped table reads mostly as
+ * the backdrop behind it, while a chip reads instantly as the colour.
+ *
+ * Arrow keys move between chips, so the row behaves like the radio group it
+ * is announced as.
+ */
+function ColorSwatches({ colors, selected, onSelect, label }) {
+  const onKeyDown = (event, index) => {
+    const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[event.key];
+    if (!step) return;
+    event.preventDefault();
+    const next = (index + step + colors.length) % colors.length;
+    onSelect(colors[next]);
+    // The chips share a roving tabindex, so focus has to follow the selection.
+    const row = event.currentTarget.parentNode;
+    if (row.children[next]) row.children[next].focus();
+  };
+
+  return e('div', { className: 'swatch-row', role: 'radiogroup', 'aria-label': label },
+    colors.map((color, index) => e('button', {
+      key: color.slug,
+      type: 'button',
+      role: 'radio',
+      'aria-checked': color.slug === selected.slug ? 'true' : 'false',
+      'aria-label': color.name,
+      title: color.name,
+      tabIndex: color.slug === selected.slug ? 0 : -1,
+      className: 'swatch' + (color.slug === selected.slug ? ' is-active' : ''),
+      style: { background: color.hex },
+      onClick: () => onSelect(color),
+      onKeyDown: (event) => onKeyDown(event, index),
+    }))
+  );
+}
+
+function ProductCard({ item }) {
+  const cart = useCart();
+  const [color, setColor] = React.useState(() => {
+    if (!item.colors) return null;
+    return item.colors.find((c) => c.name === item.defaultColor) || item.colors[0];
+  });
+
+  // A colour is part of what is being requested, so each one is its own basket
+  // line — two covers in fuchsia and four in sage have to survive as two rows.
+  const lineId = color ? item.id + ':' + color.slug : item.id;
+  const lineName = color ? item.name + ' — ' + color.name : item.name;
+  const inBasket = cart.items.some((line) => line.id === lineId);
+
+  const shown = color || item.hero;
+  const meta = item.meta || {};
+  const rows = Object.keys(meta);
+
+  return e('article', { className: 'card product-card' },
+    shown
+      ? e('img', { src: shown.image, alt: shown.alt, loading: 'lazy' })
+      : e(ProductPlaceholder),
+    e('div', { className: 'card-body' },
+      e('span', null, item.category),
+      e('h3', null, item.name),
+      e('p', null, item.description),
+
+      color ? e('div', { className: 'swatch-block' },
+        e('p', { className: 'swatch-label' },
+          'Colour: ',
+          e('strong', null, color.name)
+        ),
+        e(ColorSwatches, {
+          colors: item.colors,
+          selected: color,
+          onSelect: setColor,
+          label: item.name + ' colour',
+        })
+      ) : null,
+
+      e('div', { className: 'product-meta' },
+        e('div', null,
+          e('strong', null, 'Price'),
+          e('span', null, item.price || 'On request')
+        ),
+        rows.map((key) => e('div', { key: key },
+          e('strong', null, key),
+          e('span', null, meta[key])
+        ))
+      ),
+      e('button', {
+        type: 'button',
+        className: 'btn btn-primary btn-block',
+        onClick: () => cart.add({ id: lineId, name: lineName, price: item.price || 'On request' }),
+      }, inBasket ? 'Add another' : 'Add to request')
+    )
+  );
+}
+
+function RentalsPage() {
   return e('div', { className: 'page-shell' },
     e('section', { className: 'section' },
       e('p', { className: 'eyebrow' }, 'Rentals catalog'),
       e('h2', null, 'Decor, rentals, and styling pieces curated for every celebration.'),
-      e('p', { className: 'lead' }, 'From table covers and flowers to tables, chair covers, and lighting, every item is chosen to create a cohesive look. Add what you need to your request and we will confirm availability for your date.'),
+      e('p', { className: 'lead' }, 'Table covers in twenty-five colours, silk flowers by the strand, seating, tables, props, and the irons that hold an installation up. Add what you need to your request and we will confirm availability and pricing for your date.'),
       e('div', { className: 'card-grid products-grid', style: { marginTop: '24px' } },
-        products.map((item) => e('article', { key: item.id, className: 'card product-card' },
-          item.image ? e('img', { src: item.image, alt: item.alt || item.name }) : null,
-          e('div', { className: 'card-body' },
-            e('span', null, item.category),
-            e('h3', null, item.name),
-            e('p', null, item.description),
-            e('div', { className: 'product-meta' },
-              e('div', null,
-                e('strong', null, 'Price'),
-                e('span', null, item.price)
-              ),
-              e('div', null,
-                e('strong', null, 'Size'),
-                e('span', null, item.size)
-              ),
-              e('div', null,
-                e('strong', null, 'Quality'),
-                e('span', null, item.quality)
-              ),
-              e('div', null,
-                e('strong', null, 'Quantity'),
-                e('span', null, item.quantity)
-              )
-            ),
-            e('button', {
-              type: 'button',
-              className: 'btn btn-primary btn-block',
-              onClick: () => cart.add(item),
-            }, inBasket(item.id) ? 'Add another' : 'Add to request')
-          )
-        ))
+        products.map((item) => e(ProductCard, { key: item.id, item: item }))
       )
-    ),
-    e('div', { className: 'section-divider' }, e('span', null)),
-    e('section', { className: 'section' },
-      e(SectionBar, {
-        eyebrow: 'Browse by category',
-        title: 'Explore the collections.',
-      }),
-      e(CategoryCarousel)
     )
   );
 }
@@ -1174,7 +1454,7 @@ function Footer() {
     ),
     e('div', { className: 'footer-bottom' },
       e('span', null, '© ' + new Date().getFullYear() + ' ' + contact.name + '. All rights reserved.'),
-      e('span', null, 'Sagamu · Abeokuta · Lagos · Abuja')
+      e('span', null, 'Ibadan · Sagamu · Abeokuta · Lagos · Osun · Ekiti')
     )
   );
 }

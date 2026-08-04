@@ -504,6 +504,63 @@ p { color: var(--muted); }
 .product-meta { display: grid; gap: 10px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border-ink); color: var(--ink-muted); font-size: 0.92rem; }
 .product-meta div { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 .product-meta strong { color: var(--ink); font-weight: 600; }
+/* The stock photography is portrait, and the product sits in the middle band
+   of the frame, so a taller crop than the default card image keeps it whole. */
+.products-grid .product-card img { height: 320px; object-position: center; }
+
+/* ---------- Colour swatches ---------- */
+.swatch-block { margin-top: 16px; }
+.swatch-label { margin: 0 0 8px; font-size: 0.88rem; color: var(--ink-muted); }
+.swatch-label strong { color: var(--ink); font-weight: 600; }
+.swatch-row { display: flex; flex-wrap: wrap; gap: 7px; }
+.swatch {
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  /* An inset hairline instead of a border, so pale chips still read as chips
+     without the ring eating into the colour. */
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.18);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.swatch:hover { transform: scale(1.12); }
+.swatch.is-active {
+  transform: scale(1.12);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.18), 0 0 0 2px #fff, 0 0 0 4px var(--pink-mid);
+}
+.swatch:focus-visible { outline: 2px solid var(--pink-mid); outline-offset: 3px; }
+
+/* ---------- Placeholder tile ---------- */
+/* Stands in for a category we have not photographed. Deliberately branded
+   rather than a stock photo, so an empty slot never implies we own the shot. */
+.product-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  height: 320px;
+  background: linear-gradient(160deg, #fff2f7 0%, #ffe1ee 55%, #ffd0e4 100%);
+}
+.product-placeholder-mark {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: #000 url('/logo-mark.jpg') center / cover no-repeat;
+  box-shadow: 0 0 0 1.5px var(--gold), 0 10px 26px rgba(80, 6, 38, 0.28);
+}
+.product-placeholder-note {
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--pink-deep);
+}
+/* The carousel's media box is shorter than a catalog card's. */
+.category-media .product-placeholder { height: 210px; gap: 10px; }
+.category-media .product-placeholder-mark { width: 54px; height: 54px; }
 
 /* ---------- Rental category carousel ---------- */
 .carousel { position: relative; }
