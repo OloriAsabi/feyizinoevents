@@ -642,6 +642,35 @@ p { color: var(--muted); }
   transition: transform 0.5s ease;
 }
 
+/* ---------- Walkthrough videos ---------- */
+/* Wider minimum than the gallery: the clips are 9:16, so three across on a
+   desktop already gives a tall card, and any narrower reads as a sliver. */
+.walkthrough-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 22px; }
+.walkthrough {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: var(--shadow);
+}
+.walkthrough-media {
+  width: 100%;
+  /* Phone footage, so the frame is portrait. Holding the ratio stops the
+     card from jumping height when the poster loads. */
+  aspect-ratio: 9 / 16;
+  max-height: 620px;
+  object-fit: cover;
+  background: #1a0511;
+  display: block;
+}
+/* The caption sits on white inside a section whose text is white, so it has
+   to set its own colour rather than inherit the page's. */
+.walkthrough figcaption { padding: 18px 20px 22px; background: #fff; color: var(--ink); }
+.walkthrough figcaption h3 { margin: 0 0 6px; font-size: 1.15rem; color: var(--ink); }
+.walkthrough figcaption p { margin: 0; color: var(--ink-muted); font-size: 0.94rem; }
+
 /* ---------- Floating action buttons ---------- */
 .fab-stack {
   position: fixed;

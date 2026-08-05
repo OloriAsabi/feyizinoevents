@@ -38,49 +38,62 @@ const heroSlides = [
   {
     type: 'video',
     src: '/media/hero.mp4',
-    poster: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1800&q=80',
-    alt: 'A couple holding a bouquet in warm, low light',
+    poster: '/media/works/candelabra-reception.jpg',
+    alt: 'A reception hall with tall floral centrepieces, gold chiavari chairs, and lights suspended overhead',
     // Matches the clip length, so it advances on a clean loop point.
     duration: 10000,
   },
   {
     type: 'image',
-    src: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1800&q=80',
-    alt: 'Long banquet tables laid with linen, glassware, and centrepieces',
+    src: '/media/works/ceremony-aisle.jpg',
+    alt: 'An outdoor ceremony aisle with a blush floral arch, white runner, and a welcome sign',
     duration: 6500,
   },
   {
     type: 'image',
-    src: 'https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=1800&q=80',
-    alt: 'A floral ceremony backdrop framed by garlanded pillars',
+    src: '/media/works/gobo-hall.jpg',
+    alt: 'A darkened hall with patterned light projected across the floor and chandeliers overhead',
     duration: 6500,
   },
   {
     type: 'image',
-    src: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1800&q=80',
-    alt: 'A banquet table with layered florals, glassware, and place settings',
+    src: '/media/works/arch-high-table.jpg',
+    alt: 'A high table set between twin arched backdrops hung with chandeliers, on a gold carpet',
     duration: 6500,
   },
 ];
 
+/* ------------------------------------------------------------------------
+ * OUR WORK — real Feyizino events
+ *
+ * The client's own photographs, from the drop in assets/our works/
+ * (gitignored). Web copies live in media/works/, resized to 1400px; the
+ * phone screenshots among them were carrying black letterbox bars, which
+ * are trimmed off in the copies that ship.
+ *
+ * Titles describe the event and its palette rather than naming the couple.
+ * Some of the signage in frame does carry client names, but that is their
+ * decision to publish, not ours — if Feyizino wants the events credited by
+ * name, the titles below are the place to do it.
+ * ---------------------------------------------------------------------- */
 const featuredWorks = [
   {
-    title: 'Garden Wedding',
-    description: 'Soft florals, candlelight, and a timeless palette that felt intimate and refined.',
-    image: 'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80',
-    alt: 'Two ceremony chairs dressed with florals on a lawn',
+    title: 'Blush Garden Ceremony',
+    description: 'An outdoor ceremony on the lawn — a blush and ivory floral arch over a white aisle, with a hand-lettered welcome sign at the entrance.',
+    image: '/media/works/ceremony-aisle.jpg',
+    alt: 'An outdoor ceremony aisle with a blush floral arch, white runner, and a welcome sign',
   },
   {
-    title: 'Birthday Soirée',
-    description: 'A playful yet polished celebration with layered textures and warm lighting.',
-    image: 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=80',
-    alt: 'A long table set with bud vases and folded linen',
+    title: 'Candlelit Reception',
+    description: 'Tall floral centrepieces, gold chiavari seating, and a suspended installation of lights and glass over the whole room.',
+    image: '/media/works/candelabra-reception.jpg',
+    alt: 'A reception hall with tall floral centrepieces, gold chiavari chairs, and lights suspended overhead',
   },
   {
-    title: 'Corporate Gala',
-    description: 'A refined setup focused on elegance, flow, and a memorable guest experience.',
-    image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=80',
-    alt: 'A banquet table with layered florals, glassware, and place settings',
+    title: 'Milestone Birthday',
+    description: 'A balloon numeral centrepiece, printed standees, and a patterned lit dance floor under chandeliers.',
+    image: '/media/works/dance-floor.jpg',
+    alt: 'A birthday reception with balloon numerals, chandeliers, and a patterned lit dance floor',
   },
 ];
 
@@ -369,13 +382,53 @@ const rentalCategories = [
   { name: 'Installations', tag: 'Build', detail: 'Installation irons that carry backdrops and arches, plus rugs and astro turf underfoot.' },
 ];
 
+/**
+ * Walkthroughs of finished rooms, cut from the client's phone footage.
+ *
+ * The originals are 70–86s portrait clips at around 120MB each; these are
+ * 20-second highlights at 540p. They are shipped `preload="none"` behind a
+ * poster, so a visit costs one JPEG and the 12MB only downloads if someone
+ * presses play — this site is read on Nigerian mobile data.
+ *
+ * The middle one is a funeral, not a party. It arrived filed beside the
+ * weddings and the signage only reads "Celebration of Life — 1958-2025" a
+ * few seconds in. Keep the wording as it is.
+ */
+const galleryVideos = [
+  {
+    slug: 'wedding-walkthrough',
+    title: 'Wedding reception',
+    detail: 'Round tables in ivory and gold, chiavari seating, and a lit installation the length of the room.',
+  },
+  {
+    slug: 'celebration-of-life-walkthrough',
+    title: 'Celebration of life',
+    detail: 'Burgundy and ivory florals through a champagne-draped marquee, with a garlanded high table.',
+  },
+  {
+    slug: 'reception-walkthrough',
+    title: 'Traditional wedding',
+    detail: 'A lilac and gold hall — floral arches over the aisle, crystal drops overhead, and a tiered cake.',
+  },
+].map((video) => ({
+  title: video.title,
+  detail: video.detail,
+  src: '/media/works/' + video.slug + '.mp4',
+  poster: '/media/works/' + video.slug + '-poster.jpg',
+}));
+
+/* Real work, ordered so the grid opens on the brightest frames. The first
+   six are what the home page shows; the portfolio page shows all nine. */
 const galleryImages = [
-  photo.chairs,
-  photo.arch,
-  photo.longTable,
-  photo.banquet,
-  photo.tabletop,
-  photo.couple,
+  { src: '/media/works/candelabra-reception.jpg', alt: 'A reception hall with tall floral centrepieces, gold chiavari chairs, and lights suspended overhead' },
+  { src: '/media/works/ceremony-aisle.jpg', alt: 'An outdoor ceremony aisle with a blush floral arch, white runner, and a welcome sign' },
+  { src: '/media/works/arch-high-table.jpg', alt: 'A high table set between twin arched backdrops hung with chandeliers, on a gold carpet' },
+  { src: '/media/works/violet-aisle.jpg', alt: 'A draped hall in white and lilac, with chandeliers over a magenta-lit aisle' },
+  { src: '/media/works/ceremony-lawn.jpg', alt: 'Rows of white ceremony chairs on a lawn facing a draped backdrop' },
+  { src: '/media/works/dance-floor.jpg', alt: 'A birthday reception with balloon numerals, chandeliers, and a patterned lit dance floor' },
+  { src: '/media/works/portrait-wall.jpg', alt: 'Large printed portraits of a couple mounted on an uplit marbled wall' },
+  { src: '/media/works/portrait-backdrop.jpg', alt: 'A printed couple portrait framed by florals above a purple carpeted lounge setting' },
+  { src: '/media/works/gobo-hall.jpg', alt: 'A darkened hall with patterned light projected across the floor and chandeliers overhead' },
 ];
 
 /* ------------------------------------------------------------------------
@@ -850,6 +903,33 @@ function GalleryGrid({ limit }) {
   );
 }
 
+/**
+ * The walkthrough clips. Native `controls` rather than a custom player: the
+ * browser's own poster-and-play affordance is already keyboard reachable and
+ * screen-reader labelled, and `preload="none"` keeps the bytes on the shelf
+ * until someone actually asks for them.
+ */
+function WalkthroughGrid() {
+  return e('div', { className: 'walkthrough-grid' },
+    galleryVideos.map((video) => e('figure', { key: video.src, className: 'walkthrough' },
+      e('video', {
+        className: 'walkthrough-media',
+        src: video.src,
+        poster: video.poster,
+        controls: true,
+        preload: 'none',
+        // iOS otherwise takes the clip fullscreen the moment it starts.
+        playsInline: true,
+        'aria-label': video.title + ' walkthrough',
+      }),
+      e('figcaption', null,
+        e('h3', null, video.title),
+        e('p', null, video.detail)
+      )
+    ))
+  );
+}
+
 function HeroSlider() {
   const [index, setIndex] = React.useState(0);
   const [paused, setPaused] = React.useState(false);
@@ -1220,6 +1300,14 @@ function PortfolioPage() {
           )
         ))
       )
+    ),
+    e('div', { className: 'section-divider' }, e('span', null)),
+    e('section', { className: 'section' },
+      e(SectionBar, {
+        eyebrow: 'Walkthroughs',
+        title: 'Step through a finished room.',
+      }),
+      e(WalkthroughGrid)
     ),
     e('div', { className: 'section-divider' }, e('span', null)),
     e('section', { className: 'section' },

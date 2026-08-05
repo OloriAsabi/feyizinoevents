@@ -29,3 +29,38 @@ of `app.js`. Each entry is either:
 ```
 
 `duration` is how long the slide holds, in milliseconds.
+
+## Why the banner clip is still stock
+
+The three walkthroughs in `works/` were considered for this slot and did not
+fit. They are portrait phone footage, and the banner is a wide landscape box,
+so `object-fit: cover` shows only the middle third of the frame. Worse,
+macOS's `avconvert` — the only transcoder on the build machine — can shrink
+the *longest* edge only, so a 1080x1920 clip comes out 607px wide however low
+the preset goes, at around 17 MB per 10 seconds.
+
+Installing `ffmpeg` would fix both: crop the centre band to 16:9, then set a
+real bitrate. Until then the banner keeps the Mixkit clip, with a real
+Feyizino photograph as its poster.
+
+## `works/` — portfolio media
+
+Stills and walkthrough clips from real Feyizino events, listed in
+`featuredWorks`, `galleryImages`, and `galleryVideos` in `app.js`.
+
+The originals are a phone drop in `assets/our works/` (gitignored): HEIC and
+PNG stills plus three 70–86 second `.MOV` files at roughly 120 MB each. What
+ships here is resized — stills at 1400px, clips as 20-second highlights at
+540p, around 12 MB each.
+
+Two things to know before adding more:
+
+- **Check which way up a frame is.** The HEIC files carry no EXIF
+  orientation, so two of them arrived on their side and had to be rotated by
+  hand. Nothing in the file tells you; you have to look.
+- **Check what the event actually is.** One of the clips is a funeral — the
+  signage reads "Celebration of Life" a few seconds in, and it was filed
+  beside the weddings. It is captioned as such, and should stay that way.
+
+The clips are `preload="none"` behind a poster image, so a visit costs one
+JPEG and the video only downloads if a visitor presses play.
