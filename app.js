@@ -21,7 +21,7 @@ const contact = {
   whatsapp: '2348023190408',
   address: '9, Abiodun Ogunyanwo Street, Off Ewusi Street, Makun, Sagamu, Ogun State',
   addressNote: 'Directly beside the AUD Central Mosque building, Awolowo Market',
-  serving: 'Serving Ibadan, Odogbo, Sagamu, Ijebu Ode, Abeokuta, Lagos, and Osun',
+  serving: 'Serving Ibadan, Osogbo, Sagamu, Ijebu Ode, Abeokuta, Lagos, and Osun',
 };
 
 /**
@@ -1104,7 +1104,7 @@ function HomePage() {
       e('section', { className: 'section' },
         e('div', { className: 'section-heading' },
           e('p', { className: 'eyebrow' }, 'Service areas'),
-          e('h2', null, 'Proudly serving Ibadan, Odogbo, Sagamu, Ijebu Ode, Abeokuta, Lagos, and Osun.'),
+          e('h2', null, 'Proudly serving Ibadan, Osogbo, Sagamu, Ijebu Ode, Abeokuta, Lagos, and Osun.'),
           e('p', null, 'Feyizino Events brings premium event decor, styling, and rentals across the South West.')
         ),
         e('div', { className: 'card-grid', style: { marginTop: '24px' } },
@@ -1227,7 +1227,7 @@ function AboutPage() {
       e('div', { className: 'section-heading' },
         e('p', { className: 'eyebrow' }, 'About us'),
         e('h2', null, 'An event studio built on ', e('span', { className: 'gold-text' }, 'detail'), ', not noise.'),
-        e('p', { className: 'lead' }, 'Feyizino Events styles and equips celebrations across Nigeria. We work from Sagamu, Ogun State, and travel to Ibadan, Odogbo, Ijebu Ode, Abeokuta, Lagos, and Osun for weddings, corporate launches, and private gatherings.')
+        e('p', { className: 'lead' }, 'Feyizino Events styles and equips celebrations across Nigeria. We work from Sagamu, Ogun State, and travel to Ibadan, Osogbo, Ijebu Ode, Abeokuta, Lagos, and Osun for weddings, corporate launches, and private gatherings.')
       ),
       e('div', { className: 'about-story' },
         e('div', { className: 'panel' },
@@ -1544,7 +1544,7 @@ function Footer() {
     ),
     e('div', { className: 'footer-bottom' },
       e('span', null, '© ' + new Date().getFullYear() + ' ' + contact.name + '. All rights reserved.'),
-      e('span', null, 'Ibadan · Odogbo · Sagamu · Ijebu Ode · Abeokuta · Lagos · Osun')
+      e('span', null, 'Ibadan · Osogbo · Sagamu · Ijebu Ode · Abeokuta · Lagos · Osun')
     )
   );
 }
