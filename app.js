@@ -21,7 +21,7 @@ const contact = {
   whatsapp: '2348023190408',
   address: '9, Abiodun Ogunyanwo Street, Off Ewusi Street, Makun, Sagamu, Ogun State',
   addressNote: 'Directly beside the AUD Central Mosque building, Awolowo Market',
-  serving: 'Serving Ibadan, Sagamu, Abeokuta, Lagos, Osun, and Ekiti',
+  serving: 'Serving Ibadan, Odogbo, Sagamu, Ijebu Ode, Abeokuta, Lagos, and Osun',
 };
 
 /**
@@ -97,10 +97,12 @@ const featuredWorks = [
   },
 ];
 
+/* Decor and rentals only — Feyizino does not plan or coordinate events, so
+   nothing here should offer to run the day. */
 const services = [
-  { title: 'Planning & design', description: 'Complete event direction with a tailored aesthetic and clear coordination.' },
-  { title: 'Styling & decor', description: 'Thoughtful details, florals, rentals, and immersive atmosphere.' },
-  { title: 'Budget support', description: 'Structured planning that keeps luxury feeling elegant and intentional.' },
+  { title: 'Decor & design', description: 'Complete decor direction with a tailored aesthetic, styled and installed on the day.' },
+  { title: 'Styling & florals', description: 'Thoughtful details, florals, and immersive atmosphere across the room.' },
+  { title: 'Decor rentals', description: 'Premium pieces from our own catalog, at a level that suits your budget.' },
 ];
 
 const eventCategories = [
@@ -445,7 +447,7 @@ const ceo = {
   photo: '',
   bio: [
     'Add a short paragraph on how Feyizino Events started — what the founder was doing before, and the moment the business began.',
-    'Add a second paragraph on how they work with clients: the planning approach, what they care about most, and what a couple or company can expect from the first meeting onward.',
+    'Add a second paragraph on how they work with clients: how a decor brief is approached, what they care about most, and what a couple or company can expect from the first meeting onward.',
   ],
   quote: 'Add a line the founder would actually say about the work.',
   focus: [
@@ -456,9 +458,9 @@ const ceo = {
 };
 
 const aboutStats = [
-  { value: '10+', label: 'Years planning celebrations' },
+  { value: '10+', label: 'Years styling celebrations' },
   { value: '250+', label: 'Events delivered' },
-  { value: '6', label: 'Cities served' },
+  { value: '7', label: 'Cities served' },
   { value: '40+', label: 'Vendor partners' },
 ];
 
@@ -468,8 +470,8 @@ const aboutValues = [
     detail: 'Every palette, table, and light is chosen to serve one clear idea rather than a collection of trends.',
   },
   {
-    title: 'Calm coordination',
-    detail: 'Timelines, vendors, and logistics are handled well before the day, so the celebration itself feels unhurried.',
+    title: 'Calm setup',
+    detail: 'Deliveries, setup, and breakdown are settled well before the day, so the celebration itself feels unhurried.',
   },
   {
     title: 'Honest budgeting',
@@ -1041,11 +1043,11 @@ function HomePage() {
         e('div', { className: 'hero-copy' },
           e('p', { className: 'eyebrow' }, 'Ibadan · Sagamu · Lagos · Abeokuta'),
           e('h1', null, 'Transforming every celebration into a ', e('span', { className: 'gold-text' }, 'signature experience'), '.'),
-          e('p', { className: 'lead' }, 'Feyizino Events delivers polished event design, seamless coordination, and premium decor for weddings, corporate launches, and private gatherings across Nigeria.'),
+          e('p', { className: 'lead' }, 'Feyizino Events delivers polished event decor, styling, and premium rental pieces for weddings, corporate launches, and private gatherings across Nigeria.'),
           e('div', { className: 'hero-actions' },
             e('a', {
               className: 'btn btn-whatsapp',
-              href: whatsappHref('Hello Feyizino Events, I would like to plan an event with you.'),
+              href: whatsappHref('Hello Feyizino Events, I would like to talk about decor for my event.'),
               target: '_blank',
               rel: 'noopener noreferrer',
             }, e(WhatsAppIcon), 'Send us a DM on WhatsApp'),
@@ -1053,7 +1055,7 @@ function HomePage() {
           ),
           e('div', { className: 'hero-details' },
             e('span', null, 'Based in Sagamu, Ogun'),
-            e('span', null, 'Serving Ibadan, Lagos, Osun, Ekiti, and beyond')
+            e('span', null, 'Serving Ibadan, Ijebu Ode, Lagos, Osun, and beyond')
           )
         )
       )
@@ -1061,9 +1063,9 @@ function HomePage() {
     e('main', null,
       e('section', { className: 'section intro' },
         e('div', null,
-          e('p', { className: 'eyebrow' }, 'About the planner'),
+          e('p', { className: 'eyebrow' }, 'About the studio'),
           e('h2', null, 'The kind of detail that makes a celebration feel effortless.'),
-          e('p', null, 'Feyizino Events brings a calm, refined approach to planning with a strong eye for styling, budgeting, and guest experience.'),
+          e('p', null, 'Feyizino Events brings a calm, refined approach to decor and rentals, with a strong eye for styling, budgeting, and guest experience.'),
           e('a', { className: 'btn btn-secondary', href: pageHref('about'), style: { marginTop: '8px' } }, 'About us and our CEO')
         ),
         e('div', { className: 'intro-panels' },
@@ -1072,10 +1074,10 @@ function HomePage() {
               e(LogoMark, { size: 'md' }),
               e('p', { className: 'eyebrow', style: { margin: 0 } }, 'Signature service')
             ),
-            e('h3', null, 'Full-service styling and coordination'),
+            e('h3', null, 'Full-service styling and decor'),
             e('ul', null,
               e('li', null, 'Venue styling and decor'),
-              e('li', null, 'Guest experience planning'),
+              e('li', null, 'Florals and table styling'),
               e('li', null, 'Custom rentals and luxury details')
             ),
             e('div', { className: 'pill' }, 'Starting at ₦2,500,000')
@@ -1084,7 +1086,7 @@ function HomePage() {
             e('h3', null, 'Why clients choose us'),
             e('ul', null,
               e('li', null, 'Creative concepts tailored to your story'),
-              e('li', null, 'Clear pricing and thoughtful budget planning'),
+              e('li', null, 'Clear pricing and honest budget advice'),
               e('li', null, 'Quality rental pieces and trusted vendor support')
             )
           )
@@ -1102,8 +1104,8 @@ function HomePage() {
       e('section', { className: 'section' },
         e('div', { className: 'section-heading' },
           e('p', { className: 'eyebrow' }, 'Service areas'),
-          e('h2', null, 'Proudly serving Ibadan, Sagamu, Abeokuta, Lagos, Osun, and Ekiti.'),
-          e('p', null, 'Feyizino Events brings premium event planning and styling across the South West.')
+          e('h2', null, 'Proudly serving Ibadan, Odogbo, Sagamu, Ijebu Ode, Abeokuta, Lagos, and Osun.'),
+          e('p', null, 'Feyizino Events brings premium event decor, styling, and rentals across the South West.')
         ),
         e('div', { className: 'card-grid', style: { marginTop: '24px' } },
           eventCategories.map((item) => e('article', { key: item.title, className: 'card product-card' },
@@ -1225,12 +1227,12 @@ function AboutPage() {
       e('div', { className: 'section-heading' },
         e('p', { className: 'eyebrow' }, 'About us'),
         e('h2', null, 'An event studio built on ', e('span', { className: 'gold-text' }, 'detail'), ', not noise.'),
-        e('p', { className: 'lead' }, 'Feyizino Events plans, styles, and equips celebrations across Nigeria. We work from Sagamu, Ogun State, and travel to Ibadan, Abeokuta, Lagos, Osun, and Ekiti for weddings, corporate launches, and private gatherings.')
+        e('p', { className: 'lead' }, 'Feyizino Events styles and equips celebrations across Nigeria. We work from Sagamu, Ogun State, and travel to Ibadan, Odogbo, Ijebu Ode, Abeokuta, Lagos, and Osun for weddings, corporate launches, and private gatherings.')
       ),
       e('div', { className: 'about-story' },
         e('div', { className: 'panel' },
           e('h3', null, 'What we do'),
-          e('p', null, 'Full-service planning and design, venue styling, and premium decor rentals — from the first concept through to the last table setting on the day.'),
+          e('p', null, 'Decor and design, venue styling, and premium decor rentals — from the first concept through to the last table setting on the day.'),
           e('p', null, 'Because we own much of what we style with, the look you agree on is the look that arrives.')
         ),
         e('div', { className: 'panel' },
@@ -1264,7 +1266,7 @@ function AboutPage() {
             e('ul', null, ceo.focus.map((item) => e('li', { key: item }, item)))
           ),
           e('div', { className: 'ceo-actions' },
-            e('a', { className: 'btn btn-primary', href: pageHref('contact') }, 'Plan with us'),
+            e('a', { className: 'btn btn-primary', href: pageHref('contact') }, 'Talk to us'),
             e('a', { className: 'btn btn-secondary', href: contact.emailHref }, 'Email the team')
           )
         )
@@ -1473,8 +1475,8 @@ function ContactPage() {
         e('h2', null, 'Let’s create something memorable together.'),
         e('p', null, 'Share a little about your date, style, and vision and we will send a tailored proposal your way.'),
         e('div', { className: 'panel', style: { marginTop: '20px' } },
-          e('h3', null, 'Budget-friendly planning'),
-          e('p', null, 'We can work around your budget and shape a plan that feels elevated without overspending.'),
+          e('h3', null, 'Budget-friendly decor'),
+          e('p', null, 'We can work around your budget and shape a look that feels elevated without overspending.'),
           e('p', { className: 'pill' }, 'Estimated starting point: ₦' + estimate.toLocaleString('en-NG'))
         ),
         e('div', { className: 'contact-info' },
@@ -1518,7 +1520,7 @@ function Footer() {
             e('span', { className: 'brand-sub' }, 'Event & Rentals')
           )
         ),
-        e('p', null, 'Elegant event planning, styling, and premium decor rentals for weddings, corporate launches, and private celebrations across Nigeria.')
+        e('p', null, 'Elegant event decor, styling, and premium rentals for weddings, corporate launches, and private celebrations across Nigeria.')
       ),
       e('div', null,
         e('h4', null, 'Explore'),
@@ -1542,7 +1544,7 @@ function Footer() {
     ),
     e('div', { className: 'footer-bottom' },
       e('span', null, '© ' + new Date().getFullYear() + ' ' + contact.name + '. All rights reserved.'),
-      e('span', null, 'Ibadan · Sagamu · Abeokuta · Lagos · Osun · Ekiti')
+      e('span', null, 'Ibadan · Odogbo · Sagamu · Ijebu Ode · Abeokuta · Lagos · Osun')
     )
   );
 }
