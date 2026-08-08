@@ -541,6 +541,39 @@ function getCurrentPage() {
   return pathToPage(window.location.pathname);
 }
 
+/** Rewrites one head tag in place. Absent tags are left alone rather than invented. */
+function setMetaContent(selector, value) {
+  const tag = document.head.querySelector(selector);
+  if (tag) tag.setAttribute('content', value);
+}
+
+/**
+ * Points the title, description, and canonical URL at `pageId`.
+ *
+ * A client-side navigation never reloads the head, so without this the tab and
+ * the canonical link would keep describing whichever page the visitor first
+ * landed on. The copy comes from `window.siteMeta`, which build.js inlines
+ * from site-meta.js, so a crawled page and a clicked-through page quote the
+ * same strings.
+ */
+function applyPageMeta(pageId) {
+  const meta = window.siteMeta;
+  const page = meta && meta.pages && meta.pages[pageId];
+  if (!page) return;
+
+  const url = meta.origin + page.path;
+  document.title = page.title;
+  setMetaContent('meta[name="description"]', page.description);
+  setMetaContent('meta[property="og:title"]', page.title);
+  setMetaContent('meta[property="og:description"]', page.description);
+  setMetaContent('meta[property="og:url"]', url);
+  setMetaContent('meta[name="twitter:title"]', page.title);
+  setMetaContent('meta[name="twitter:description"]', page.description);
+
+  const canonical = document.head.querySelector('link[rel="canonical"]');
+  if (canonical) canonical.setAttribute('href', url);
+}
+
 function LogoMark({ size = 'sm' }) {
   return e('span', { className: 'logo-mark logo-mark-' + size },
     e('img', { src: '/logo-mark.jpg', alt: 'Feyizino Events' })
@@ -1561,6 +1594,10 @@ function App() {
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
+
+  React.useEffect(() => {
+    applyPageMeta(page);
+  }, [page]);
 
   // Escape closes the drawer, and so does growing past the breakpoint — a menu
   // left open while the layout switches back to the inline nav would otherwise
